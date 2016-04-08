@@ -25,23 +25,23 @@ return array(
 */
 public function accessRules()
 {
-return array(
-array('allow',  // allow all users to perform 'index' and 'view' actions
-'actions'=>array('index','view','listarapartamento'),
-'users'=>array('*'),
-),
-array('allow', // allow authenticated user to perform 'create' and 'update' actions
-'actions'=>array('create','update','listarapartamento'),
-'users'=>array('@'),
-),
-array('allow', // allow admin user to perform 'admin' and 'delete' actions
-'actions'=>array('admin','delete','listarapartamento'),
-'users'=>array('admin'),
-),
-array('deny',  // deny all users
-'users'=>array('*'),
-),
-);
+	return array(
+	array('allow',  // allow all users to perform 'index' and 'view' actions
+		'actions'=>array('index','view','listarapartamento','SelectEdificio','SelectApartamento'),
+		'users'=>array('*'),
+	),
+	array('allow', // allow authenticated user to perform 'create' and 'update' actions
+		'actions'=>array('create','update','listarapartamento'),
+		'users'=>array('@'),
+	),
+	array('allow', // allow admin user to perform 'admin' and 'delete' actions
+		'actions'=>array('admin','delete','listarapartamento'),
+		'users'=>array('admin'),
+	),
+	array('deny',  // deny all users
+		'users'=>array('*'),
+	),
+	);
 }
 
 /**
@@ -50,17 +50,17 @@ array('deny',  // deny all users
 */
 public function actionView($id)
 {
-$this->render('view',array(
-'model'=>$this->loadModel($id),
-));
+	$this->render('view',array(
+		'model'=>$this->loadModel($id),
+	));
 }
 
 public function actionListarApartamento()
 {
 	$model=new Apartamento;
-$this->render('listarapartamento',array(
-'model'=>$model,
-));
+	$this->render('listarapartamento',array(
+		'model'=>$model,
+	));
 }
 
 /**
@@ -69,21 +69,24 @@ $this->render('listarapartamento',array(
 */
 public function actionCreate()
 {
-$model=new Apartamento;
-
+	$model=new Apartamento;
+	$cliente = new Cliente;
+    $clienteall = $cliente->findAll(); 
 // Uncomment the following line if AJAX validation is needed
 // $this->performAjaxValidation($model);
 
-if(isset($_POST['Apartamento']))
-{
-$model->attributes=$_POST['Apartamento'];
-if($model->save())
-$this->redirect(array('view','id'=>$model->id_apartamento));
-}
+	if(isset($_POST['Apartamento']))
+	{
+		$model->attributes=$_POST['Apartamento'];
+		if($model->save())
+			$this->redirect(array('view','id'=>$model->id_apartamento));
+	}
 
-$this->render('create',array(
-'model'=>$model,
-));
+	$this->render('create',array(
+		'model'=>$model,
+		'cliente'=>$cliente,
+		'clienteall'=>$clienteall,
+	));
 }
 
 /**
@@ -93,21 +96,21 @@ $this->render('create',array(
 */
 public function actionUpdate($id)
 {
-$model=$this->loadModel($id);
+	$model=$this->loadModel($id);
 
-// Uncomment the following line if AJAX validation is needed
-// $this->performAjaxValidation($model);
+	// Uncomment the following line if AJAX validation is needed
+	// $this->performAjaxValidation($model);
 
-if(isset($_POST['Apartamento']))
-{
-$model->attributes=$_POST['Apartamento'];
-if($model->save())
-$this->redirect(array('view','id'=>$model->id_apartamento));
-}
+	if(isset($_POST['Apartamento']))
+	{
+		$model->attributes=$_POST['Apartamento'];
+		if($model->save())
+			$this->redirect(array('view','id'=>$model->id_apartamento));
+	}
 
-$this->render('update',array(
-'model'=>$model,
-));
+	$this->render('update',array(
+			'model'=>$model,
+	));
 }
 
 /**
@@ -119,16 +122,15 @@ public function actionDelete($id)
 {
 if(Yii::app()->request->isPostRequest)
 {
-// we only allow deletion via POST request
-$this->loadModel($id)->delete();
+	// we only allow deletion via POST request
+	$this->loadModel($id)->delete();
 
-// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-if(!isset($_GET['ajax']))
-$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
-}
-else
-throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
-}
+	// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+	if(!isset($_GET['ajax']))
+		$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+	}else
+		throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+	}
 
 /**
 * Lists all models.
@@ -175,10 +177,40 @@ return $model;
 */
 protected function performAjaxValidation($model)
 {
-if(isset($_POST['ajax']) && $_POST['ajax']==='apartamento-form')
-{
-echo CActiveForm::validate($model);
-Yii::app()->end();
+	if(isset($_POST['ajax']) && $_POST['ajax']==='apartamento-form')
+	{
+		echo CActiveForm::validate($model);
+		Yii::app()->end();
+	}
 }
-}
+
+public function actionSelectEdificio()
+        {
+             $id_un = $_GET['id_proyecto'];
+             $lista = Edificio::model()->findAll('idProyecto = :id_proyecto',array(':id_uno' => $id_uno));
+             $lista = CHtml::listData($lista, 'id_edificio', 'nom_edificio');
+
+                        echo CHtml::tag('option',array('value' => ''),'Seleccione un Edificio...',true);
+                    foreach($lista as $valor => $municipio)
+            {
+                echo CHtml::tag('option',array('value' => $valor),CHtml::encode($municipio), true);
+            }
+
+        }
+
+public function actionSelectApartamento()
+        {
+                 $id_dos= $_POST['TblMunicipio']['id']; 
+            //$lista2 = TblParroquia::model()->findAll('idmunicipio = :id_dos',array(':id_dos' => $id_dos));
+             $lista2 = TblParroquia::model()->findAll('idmunicipio = :id_dos',array(':id_dos' => $id_dos));
+             $lista2 = CHtml::listData($lista2, 'id', 'parroquia');
+
+                        echo CHtml::tag('option',array('value' => ''),'Seleccione un Parroquia...',true);
+                    foreach($lista2 as $valor2 => $parroquia)
+            {
+                echo CHtml::tag('option',array('value' => $valor2),CHtml::encode($parroquia), true);
+            }
+
+        }        
+
 }

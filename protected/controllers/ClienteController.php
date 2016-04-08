@@ -27,11 +27,11 @@ public function accessRules()
 {
 return array(
 array('allow',  // allow all users to perform 'index' and 'view' actions
-'actions'=>array('index','view'),
+'actions'=>array('index','view','existecliente'),
 'users'=>array('*'),
 ),
 array('allow', // allow authenticated user to perform 'create' and 'update' actions
-'actions'=>array('create','update'),
+'actions'=>array('create','update','existecliente'),
 'users'=>array('@'),
 ),
 array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -173,4 +173,13 @@ echo CActiveForm::validate($model);
 Yii::app()->end();
 }
 }
+
+public function actionExisteCliente() {
+	    $cekprop=$_GET['id_cliente'];
+                $sql=Cliente::model()->findAllByAttributes(array('id_cliente'=>$cekprop));
+                foreach ($sql as $i)
+                {
+                        echo $i->nom_cliente;
+                }
+    }
 }
