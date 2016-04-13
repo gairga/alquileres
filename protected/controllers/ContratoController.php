@@ -1,6 +1,6 @@
 <?php
 
-class ClienteController extends Controller
+class ContratoController extends Controller
 {
 /**
 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -27,11 +27,11 @@ public function accessRules()
 {
 return array(
 array('allow',  // allow all users to perform 'index' and 'view' actions
-'actions'=>array('index','view','existecliente'),
+'actions'=>array('index','view'),
 'users'=>array('*'),
 ),
 array('allow', // allow authenticated user to perform 'create' and 'update' actions
-'actions'=>array('create','update','existecliente'),
+'actions'=>array('create','update'),
 'users'=>array('@'),
 ),
 array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -61,16 +61,16 @@ $this->render('view',array(
 */
 public function actionCreate()
 {
-$model=new Cliente;
+$model=new Contrato;
 
 // Uncomment the following line if AJAX validation is needed
 // $this->performAjaxValidation($model);
 
-if(isset($_POST['Cliente']))
+if(isset($_POST['Contrato']))
 {
-$model->attributes=$_POST['Cliente'];
+$model->attributes=$_POST['Contrato'];
 if($model->save())
-$this->redirect(array('view','id'=>$model->id_cliente));
+$this->redirect(array('view','id'=>$model->id_contrato));
 }
 
 $this->render('create',array(
@@ -90,11 +90,11 @@ $model=$this->loadModel($id);
 // Uncomment the following line if AJAX validation is needed
 // $this->performAjaxValidation($model);
 
-if(isset($_POST['Cliente']))
+if(isset($_POST['Contrato']))
 {
-$model->attributes=$_POST['Cliente'];
+$model->attributes=$_POST['Contrato'];
 if($model->save())
-$this->redirect(array('view','id'=>$model->id_cliente));
+$this->redirect(array('view','id'=>$model->id_contrato));
 }
 
 $this->render('update',array(
@@ -127,7 +127,7 @@ throw new CHttpException(400,'Invalid request. Please do not repeat this request
 */
 public function actionIndex()
 {
-$dataProvider=new CActiveDataProvider('Cliente');
+$dataProvider=new CActiveDataProvider('Contrato');
 $this->render('index',array(
 'dataProvider'=>$dataProvider,
 ));
@@ -138,10 +138,10 @@ $this->render('index',array(
 */
 public function actionAdmin()
 {
-$model=new Cliente('search');
+$model=new Contrato('search');
 $model->unsetAttributes();  // clear any default values
-if(isset($_GET['Cliente']))
-$model->attributes=$_GET['Cliente'];
+if(isset($_GET['Contrato']))
+$model->attributes=$_GET['Contrato'];
 
 $this->render('admin',array(
 'model'=>$model,
@@ -155,7 +155,7 @@ $this->render('admin',array(
 */
 public function loadModel($id)
 {
-$model=Cliente::model()->findByPk($id);
+$model=Contrato::model()->findByPk($id);
 if($model===null)
 throw new CHttpException(404,'The requested page does not exist.');
 return $model;
@@ -167,28 +167,10 @@ return $model;
 */
 protected function performAjaxValidation($model)
 {
-if(isset($_POST['ajax']) && $_POST['ajax']==='cliente-form')
+if(isset($_POST['ajax']) && $_POST['ajax']==='contrato-form')
 {
 echo CActiveForm::validate($model);
 Yii::app()->end();
 }
 }
-
-public function actionExisteCliente() {
-	    $cekprop=$_GET['id_cliente'];
-	//$cekprop=3;
-                $sql=Cliente::model()->findAllByAttributes(array('id_cliente'=>$cekprop));
-             /*   $sql=Cliente::model()->findAll('id_cliente=:id_cliente',
-                               array(':id_cliente'=>$cekprop)); */
-              //  var_dump($sql);die;
-                foreach ($sql as $i)
-                {
-                        echo $i->nom_cliente;
-                        echo $i->ape_cliente;
-                        echo $i->num_identificacion;
-                        echo $i->correo;
-                     
-                }
-  // die;
-    }
 }

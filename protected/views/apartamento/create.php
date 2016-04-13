@@ -1,7 +1,7 @@
 <?php
 $this->breadcrumbs=array(
 	'Apartamentos'=>array('index'),
-	'Create',
+	'Registrar Alquiler',
 );
 
 $this->menu=array(

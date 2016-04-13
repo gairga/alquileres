@@ -37,6 +37,22 @@
 	<?php echo CHtml::encode($data->monto_alquiler); ?>
 	<br />
 
+	<b><?php echo CHtml::encode($data->getAttributeLabel('id_proyecto')); ?>:</b>
+	<?php echo CHtml::encode($data->id_proyecto); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('id_edificio')); ?>:</b>
+	<?php echo CHtml::encode($data->id_edificio); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('id_apartamento')); ?>:</b>
+	<?php echo CHtml::encode($data->id_apartamento); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('id_cliente')); ?>:</b>
+	<?php echo CHtml::encode($data->id_cliente); ?>
+	<br />
+
 	*/ ?>
 
 </div>

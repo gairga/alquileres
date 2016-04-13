@@ -27,7 +27,7 @@ public function accessRules()
 {
 	return array(
 	array('allow',  // allow all users to perform 'index' and 'view' actions
-		'actions'=>array('index','view','listarapartamento','SelectEdificio','SelectApartamento'),
+		'actions'=>array('index','view','listarapartamento','selectdos','selecttres'),
 		'users'=>array('*'),
 	),
 	array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -184,33 +184,37 @@ protected function performAjaxValidation($model)
 	}
 }
 
-public function actionSelectEdificio()
+   public function actionSelectdos()
         {
-             $id_un = $_GET['id_proyecto'];
-             $lista = Edificio::model()->findAll('idProyecto = :id_proyecto',array(':id_uno' => $id_uno));
-             $lista = CHtml::listData($lista, 'id_edificio', 'nom_edificio');
-
-                        echo CHtml::tag('option',array('value' => ''),'Seleccione un Edificio...',true);
-                    foreach($lista as $valor => $municipio)
-            {
-                echo CHtml::tag('option',array('value' => $valor),CHtml::encode($municipio), true);
+            $id_uno = $_GET['Apartamento']['id_proyecto'];
+        //  var_dump($id_uno);die;
+            $lista = Edificio::model()->findAll('id_proyecto = :id_proyecto',array(':id_proyecto'=>$id_uno));
+       
+            $lista = CHtml::listData($lista,'id_edificio','nom_edificio');
+            
+            echo CHtml::tag('option', array('value' => ''), 'Seleccione', true);
+            
+            foreach ($lista as $valor => $descripcion){
+                echo CHtml::tag('option',array('value'=>$valor),CHtml::encode($descripcion), true );
+                
             }
-
+            
         }
-
-public function actionSelectApartamento()
+        
+        
+                public function actionSelecttres()
         {
-                 $id_dos= $_POST['TblMunicipio']['id']; 
-            //$lista2 = TblParroquia::model()->findAll('idmunicipio = :id_dos',array(':id_dos' => $id_dos));
-             $lista2 = TblParroquia::model()->findAll('idmunicipio = :id_dos',array(':id_dos' => $id_dos));
-             $lista2 = CHtml::listData($lista2, 'id', 'parroquia');
-
-                        echo CHtml::tag('option',array('value' => ''),'Seleccione un Parroquia...',true);
-                    foreach($lista2 as $valor2 => $parroquia)
-            {
-                echo CHtml::tag('option',array('value' => $valor2),CHtml::encode($parroquia), true);
+            $id_dos = $_POST['Apartamento']['id_edificio'];
+            $lista = Apartamento::model()->findAll('id_edificio = :id_edificio',array(':id_edificio'=>$id_dos));
+            $lista = CHtml::listData($lista,'id_apartamento','nom_apartamento');
+            
+            echo CHtml::tag('option', array('value' => ''), 'Seleccione', true);
+            
+            foreach ($lista as $valor => $descripcion){
+                echo CHtml::tag('option',array('value'=>$valor),CHtml::encode($descripcion), true );
+                
             }
-
-        }        
+            
+        }       
 
 }

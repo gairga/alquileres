@@ -59,10 +59,10 @@ if($user!=""){
               
 
 
-              array('label'=>'ALQUILER', 'url'=>array('/edificio/index'),
+              array('label'=>'ALQUILER', 'url'=>array('/pagoAlquiler/index'),
               'items'=>array(
-                      array('label'=>'Nuevo Alquiler', 'url'=>array('/apartamento/create')),
-                      array('label'=>'Listado', 'url'=>array('/apartamento/listarapartamento')),
+                      array('label'=>'Nuevo Alquiler', 'url'=>array('/pagoAlquiler/newalquiler')),
+                      array('label'=>'Listado', 'url'=>array('/pagoAlquiler/listarapartamento')),
                      // array('label'=>'Asociar Apartamento', 'url'=>array('/edificio/asociarapartamento')),                       
                             )
                                 ),
@@ -71,7 +71,7 @@ if($user!=""){
 
               array('label'=>'PAGOS', 'url'=>array('/pagoAlquiler/index'),
 							'items'=>array(
-								array('label'=>'Registrar Pago', 'url'=>array('/pagoAlquiler/registrarpago')),
+								array('label'=>'Registrar Pago', 'url'=>array('/pagoAlquiler/buscarclientes')),
                 array('label'=>'Detalle Pagos', 'url'=>array('/pagoAlquiler/detallespago')),
            
 							)

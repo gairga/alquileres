@@ -21,6 +21,14 @@
 
 		<?php echo $form->textFieldGroup($model,'monto_alquiler',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>
 
+		<?php echo $form->textFieldGroup($model,'id_proyecto',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>
+
+		<?php echo $form->textFieldGroup($model,'id_edificio',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>
+
+		<?php echo $form->textFieldGroup($model,'id_apartamento',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>
+
+		<?php echo $form->textFieldGroup($model,'id_cliente',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>
+
 	<div class="form-actions">
 		<?php $this->widget('booster.widgets.TbButton', array(
 			'buttonType' => 'submit',

@@ -2,9 +2,14 @@
 $form=$this->beginWidget('booster.widgets.TbActiveForm',array(
 	'id'=>'apartamento-form',
 	'enableAjaxValidation'=>false,
+));
 
-
-)); ?>
+ $this->menu=array(
+  array('label'=>'List PagoAlquiler','url'=>array('index')),
+  array('label'=>'Manage PagoAlquiler','url'=>array('admin')),
+ ); 
+ $nombre=null;
+?>
 
 <style type="text/css">
 .form-inline .form-group > div.col-xs-8 {
@@ -30,12 +35,12 @@ $form=$this->beginWidget('booster.widgets.TbActiveForm',array(
 
 $(function(){
 
-         $('select#Apartamento_id_cliente').change(function () { 
+         $('select#PagoAlquiler_id_cliente').change(function () { 
 
       //  $('select#Apartamento_id_cliente').blur(function() {
          //   var id_cliente=(document.getElementById('Apartamento_id_cliente').value);
  //alert("ff");
-          var x = $('#Apartamento_id_cliente').val();
+          var x = $('#PagoAlquiler_id_cliente').val();
                    alert(x);
          
             //   alert(x);
@@ -43,7 +48,9 @@ $(function(){
                           url: "<?php echo Yii::app()->createUrl('cliente/existecliente')?>",
                           data: {"id_cliente":x},
                           success: function(data){
-                                  $nombre=$("#nombre").val(data);
+       
+                                  $("#nombre").val(data);
+                                 // $("#apellido").val(data);
                          }
               });
          });
@@ -66,11 +73,11 @@ $(function(){
                           'class'=>'form-control',
                             'ajax'=>array(
                               'type'=>'GET',
-                              'url'=>CController::createUrl('apartamento/Selectdos'),
+                              'url'=>CController::createUrl('PagoAlquiler/Selectdos'),
                               'update'=>'#'.CHtml::activeId($model,'id_edificio'),
                               'beforeSend' => 'function(){
-                               $("#Apartamento_id_edificio").find("option").remove();
-                               $("#Apartamento_id_apartamento").find("option").remove();
+                               $("#PagoAlquiler_id_edificio").find("option").remove();
+                               $("#PagoAlquiler_id_apartamento").find("option").remove();
                                }',  
                             ),'prompt'=>'Seleccione'
                             
@@ -94,10 +101,10 @@ $(function(){
                             'class'=>'form-control',
                             'ajax'=>array(
                               'type'=>'POST',
-                              'url'=>CController::createUrl('apartamento/Selecttres'),
+                              'url'=>CController::createUrl('PagoAlquiler/Selecttres'),
                               'update'=>'#'.CHtml::activeId($model,'id_apartamento'),
                               'beforeSend' => 'function(){
-                              $("#Apartamento_id_apartamento").find("option").remove();
+                              $("#PagoAlquiler_id_apartamento").find("option").remove();
                                }',   
                                 
                             ),
@@ -184,21 +191,46 @@ $(function(){
         ?>
   </div> 
 <br/><br/>
-  <div class="col-xs-4">
-      <label for="ex1">Nombre Cliente</label>
-      <input class="form-control" id="nombre" type="text" name="nombre" placeholder="Nombre Cliente">
+
+<div class="form-group">
+    <label for="nombre">Nombre Cliente:</label>
+    <input type="nombre" class="form-control" id="nombre">
   </div>
-  <div class="col-xs-4">
-      <label for="ex2">Apellido </label>
-      <input class="form-control" id="ex2" type="text" placeholder="Apellido Cliente">
-  </div>
-  <div class="col-xs-5">
-      <label for="ex3">Cedula</label>
-      <input class="form-control" id="ex3" type="text" placeholder="XXXX">
-  </div>
+
  </div>
 
+<button type="button" class="btn btn-warning">DATOS CONTRATO</button>
 
+  <?php echo $form->datePickerGroup($contrato,'inicio_contrato',array('widgetOptions'=>array('options'=>array(
+                                 'format' => 'yyyy-mm-dd'
+                    ),'htmlOptions'=>array('class'=>'span5')), 'prepend'=>'<i class="glyphicon glyphicon-calendar"></i>', 'append'=>'Click on Month/Year to select a different Month/Year.')); ?>
+
+  <?php echo $form->datePickerGroup($contrato,'fin_contrato',array(
+                    'widgetOptions'=>array(
+                    'options'=>array(
+                                 'format' => 'yyyy-mm-dd'
+                    ),
+                    'htmlOptions'=>array('class'=>'span5')), 
+                     'prepend'=>'<i class="glyphicon glyphicon-calendar"></i>', 'append'=>'Click on Month/Year to select a different Month/Year.')); ?>
+
+    <div class="row">
+       <?php echo $form->labelEx($contrato,'id_tipo_pago'); ?>
+    <?php echo $form->dropDownList($contrato, 'id_tipo_pago', CHtml::listData(TipoPago::model()->findAll(array('order'=>'nom_tipo_pago')), 'id_tipo_pago','nom_tipo_pago'),
+          array(
+  'class'=>'form-control',
+          'empty'=>'Seleccionar..')); ?>
+
+    <?php echo $form->error($contrato,'id_tipo_pago'); ?>
+  </div>
+  <?php echo $form->textFieldGroup($contrato,'monto_alquiler',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>
+
+<div class="form-actions">
+  <?php $this->widget('booster.widgets.TbButton', array(
+      'buttonType'=>'submit',
+      'context'=>'primary',
+      'label'=>$model->isNewRecord ? 'Create' : 'Save',
+    )); ?>
+</div>
 
 
 <?php $this->endWidget(); ?>

@@ -1,4 +1,15 @@
+<?php 
+$form=$this->beginWidget('booster.widgets.TbActiveForm',array(
+  'id'=>'apartamento-form',
+  'enableAjaxValidation'=>false,
+));
 
+ $this->menu=array(
+  array('label'=>'List PagoAlquiler','url'=>array('index')),
+  array('label'=>'Manage PagoAlquiler','url'=>array('admin')),
+ ); 
+ $nombre=null;
+?>
 <style type="text/css">
 .form-inline .form-group > div.col-xs-8 {
     padding-left: 0;
@@ -19,17 +30,18 @@
   }
 }
 </style> 
-
+<?php echo $form->errorSummary($model); ?>
  <div class="panel panel-primary">
       <div class="panel-heading">INFORMACIÓN GENERAL</div>
       <div class="panel-body">
         N° de Apartamento/Local:1126<br/>
-        NOmbre del Cliente: Pedro Perez<br/>
-        N° de Identificación: --- <br/>  
-        Inicio de Contrato: --- <br/>
-        N° de Contrato: --- <br/>
-        Cuota de Pago: --- <br/>
-        Feha de Corte de Pago: --- <br/>
+        Nombre del Cliente: <?php echo $cliente->nom_cliente;?><br/>
+        Apellido del Cliente: <?php echo $cliente->ape_cliente;?><br/>
+        N° de Identificación: <?php echo $cliente->num_identificacion;?> <br/>  
+        Inicio de Contrato: <?php echo $contrato->inicio_contrato;?> <br/>
+        N° de Contrato: <?php echo $contrato->id_contrato; ?> <br/>
+        Cuota de Pago: <?php echo "";?> <br/>
+        Feha de Corte de Pago: <?php echo "";?> <br/>
 
       </div>
     </div>
@@ -40,10 +52,11 @@
    <div class="panel-heading">INFORMACIÓN GENERAL</div>
       <div class="panel-body">
   
+  
 
+  
     <div class="form-group">
-    <label for="exampleInputName2">Fecha de Pago</label>
-    <input type="text" class="form-control" id="exampleInputName2" placeholder="2016-01-31">
+    <?php echo $form->textFieldGroup($model,'fecha_pago',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>
   </div>
   <div class="form-group">
     <label for="exampleInputEmail2">N° de Recibo</label>
@@ -55,8 +68,8 @@
     <input type="text" class="form-control" id="exampleInputName2" placeholder="2">
   </div>
   <div class="form-group">
-    <label for="exampleInputEmail2">Monto Pagado</label>
-    <input type="email" class="form-control" id="exampleInputEmail2" placeholder="300">
+  
+   <?php echo $form->textFieldGroup($model,'monto_pagado',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>
       </div>
 
        <div class="form-group">
@@ -88,3 +101,5 @@
 
  </div>
   </div>
+
+  <?php $this->endWidget(); ?>

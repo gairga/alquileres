@@ -27,15 +27,15 @@ public function accessRules()
 {
 return array(
 array('allow',  // allow all users to perform 'index' and 'view' actions
-'actions'=>array('index','view','registrarpago','detallespago'),
+'actions'=>array('index','view','newalquiler','Selecttres','Selectdos','registrarpago','buscarclientes'),
 'users'=>array('*'),
 ),
 array('allow', // allow authenticated user to perform 'create' and 'update' actions
-'actions'=>array('create','update','registrarpago','detallespago'),
+'actions'=>array('create','update','newalquiler','Selecttres','Selectdos','registrarpago','buscarclientes'),
 'users'=>array('@'),
 ),
 array('allow', // allow admin user to perform 'admin' and 'delete' actions
-'actions'=>array('admin','delete','registrarpago','detallespago'),
+'actions'=>array('admin','delete'),
 'users'=>array('admin'),
 ),
 array('deny',  // deny all users
@@ -50,24 +50,8 @@ array('deny',  // deny all users
 */
 public function actionView($id)
 {
-	$this->render('view',array(
-		'model'=>$this->loadModel($id),
-	));
-}
-
-public function actionDetallesPago()
-{
-	$model=new Apartamento;
-		$this->render('detallespago',array(
-		'model'=>$model,
-	));
-}
-
-public function actionRegistrarPago()
-{
-	$model=new Apartamento;
-$this->render('registrarpago',array(
-'model'=>$model,
+$this->render('view',array(
+'model'=>$this->loadModel($id),
 ));
 }
 
@@ -189,4 +173,104 @@ echo CActiveForm::validate($model);
 Yii::app()->end();
 }
 }
+
+public function actionNewAlquiler()
+{
+	$model=new PagoAlquiler;
+    $contrato=new Contrato;
+	// Uncomment the following line if AJAX validation is needed
+	// $this->performAjaxValidation($model);
+
+	if(isset($_POST['PagoAlquiler']) && isset($_POST['Contrato'])) 
+	{
+    $contrato->attributes=$_POST['Contrato'];		
+	$model->attributes=$_POST['PagoAlquiler'];
+	$contrato->id_cliente=$model->id_cliente;
+	if($contrato->save()){
+		$model->id_contrato=$contrato->id_contrato;	
+	}
+	
+	if($model->save())
+			$this->redirect(array('view','id'=>$model->id_pago_alquiler));
+	}
+
+	$this->render('newalquiler',array(
+			'model'=>$model,
+			'contrato'=>$contrato
+	));
+}
+
+public function actionRegistrarPago($id)
+{
+	//var_dump($id);
+	$model=new PagoAlquiler;
+	
+    $contrato=Contrato::model()->find('id_cliente=:id_cliente',array(':id_cliente'=>$id));
+    $cliente=Cliente::model()->find('id_cliente=:id_cliente',array(':id_cliente'=>$id));
+	// Uncomment the following line if AJAX validation is needed
+	// $this->performAjaxValidation($model);
+
+	if(isset($_POST['PagoAlquiler']) && isset($_POST['Contrato'])) 
+	{
+    $contrato->attributes=$_POST['Contrato'];		
+	$model->attributes=$_POST['PagoAlquiler'];
+	$contrato->id_cliente=$model->id_cliente;
+	if($contrato->save())
+	if($model->save())
+			$this->redirect(array('view','id'=>$model->id_pago_alquiler));
+	}
+
+	$this->render('registrarpago',array(
+			'model'=>$model,
+			'contrato'=>$contrato,
+			'cliente'=>$cliente
+	));
+}
+
+public function actionBuscarClientes()
+{
+	$model=new Cliente;
+	// Uncomment the following line if AJAX validation is needed
+	// $this->performAjaxValidation($model);
+	$model=new Cliente('search');
+	$model->unsetAttributes();  // clear any default values
+
+	if(isset($_GET['Cliente']))
+			$model->attributes=$_GET['Cliente'];
+
+	$this->render('buscarclientes',array(
+			'model'=>$model,
+	));
+}
+public function actionSelectdos(){
+            $id_uno = $_GET['PagoAlquiler']['id_proyecto'];
+        //  var_dump($id_uno);die;
+            $lista = Edificio::model()->findAll('id_proyecto = :id_proyecto',array(':id_proyecto'=>$id_uno));
+       
+            $lista = CHtml::listData($lista,'id_edificio','nom_edificio');
+            
+            echo CHtml::tag('option', array('value' => ''), 'Seleccione', true);
+            
+            foreach ($lista as $valor => $descripcion){
+                echo CHtml::tag('option',array('value'=>$valor),CHtml::encode($descripcion), true );
+                
+            }
+            
+        }
+        
+        
+        public function actionSelecttres()
+        {
+            $id_dos = $_POST['PagoAlquiler']['id_edificio'];
+            $lista = Apartamento::model()->findAll('id_edificio = :id_edificio',array(':id_edificio'=>$id_dos));
+            $lista = CHtml::listData($lista,'id_apartamento','nom_apartamento');
+            
+            echo CHtml::tag('option', array('value' => ''), 'Seleccione', true);
+            
+            foreach ($lista as $valor => $descripcion){
+                echo CHtml::tag('option',array('value'=>$valor),CHtml::encode($descripcion), true );
+                
+            }
+            
+        } 
 }

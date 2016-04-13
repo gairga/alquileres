@@ -1,12 +1,12 @@
 <?php
 $this->breadcrumbs=array(
-	'Pago Alquilers'=>array('index'),
+	'Contratos'=>array('index'),
 	'Manage',
 );
 
 $this->menu=array(
-array('label'=>'List PagoAlquiler','url'=>array('index')),
-array('label'=>'Create PagoAlquiler','url'=>array('create')),
+array('label'=>'List Contrato','url'=>array('index')),
+array('label'=>'Create Contrato','url'=>array('create')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -15,7 +15,7 @@ $('.search-form').toggle();
 return false;
 });
 $('.search-form form').submit(function(){
-$.fn.yiiGridView.update('pago-alquiler-grid', {
+$.fn.yiiGridView.update('contrato-grid', {
 data: $(this).serialize()
 });
 return false;
@@ -23,7 +23,7 @@ return false;
 ");
 ?>
 
-<h1>Manage Pago Alquilers</h1>
+<h1>Manage Contratos</h1>
 
 <p>
 	You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>
@@ -39,25 +39,16 @@ return false;
 </div><!-- search-form -->
 
 <?php $this->widget('booster.widgets.TbGridView',array(
-'id'=>'pago-alquiler-grid',
+'id'=>'contrato-grid',
 'dataProvider'=>$model->search(),
 'filter'=>$model,
 'columns'=>array(
-		'id_pago_alquiler',
 		'id_contrato',
-		'fecha_corte_pago',
-		'cuota_pago',
-		'cuota_mensual',
-		'monto_pagado',
-		/*
-		'saldo_pendiente',
-		'fecha_ultimo_pago',
-		'monto_alquiler',
-		'id_proyecto',
-		'id_edificio',
-		'id_apartamento',
 		'id_cliente',
-		*/
+		'inicio_contrato',
+		'fin_contrato',
+		'tipo_pago',
+		'monto_alquiler',
 array(
 'class'=>'booster.widgets.TbButtonColumn',
 ),
