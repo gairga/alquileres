@@ -65,11 +65,11 @@ class Edificio extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id_edificio' => 'Id Edificio',
-			'nom_edificio' => 'Nom Edificio',
-			'id_proyecto' => 'Id Proyecto',
-			'id_apartamento' => 'Id Apartamento',
-			'cant' => 'Cant',
+			'id_edificio' => 'ID Edificio',
+			'nom_edificio' => 'Nombre de la Torre',
+			'id_proyecto' => 'Proyecto',
+			'id_apartamento' => 'ID Apartamento',
+			'cant' => 'Cantidad del Apartamentos',
 			'pisos' => 'Pisos',
 		);
 	}

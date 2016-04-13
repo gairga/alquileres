@@ -13,6 +13,6 @@ $this->breadcrumbs=array(
 	);
 	?>
 
-	<h1>Update Edificio <?php echo $model->id_edificio; ?></h1>
+<button type="button" class="btn btn-warning">ACTUALIZAR TORRE #<?php echo $model->id_edificio; ?></button
 
 <?php echo $this->renderPartial('_form',array('model'=>$model)); ?>

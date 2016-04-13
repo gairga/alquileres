@@ -44,6 +44,12 @@ return false;
 'dataProvider'=>$model->search(),
 'filter'=>$model,
 'columns'=>array(
+        array(
+                    'name'=>'id_proyecto',
+                    'header'=>'Proyecto',
+                    'value'=> 'CHtml::encode($data->idProyecto["nom_proyecto"])',
+                    'filter'=>CHtml::listData(Proyecto::model()->findAll(), 'id_proyecto', 'nom_proyecto'),
+                ),
 		      array(
                     'name'=>'id_edificio',
                     'header'=>'Edificio',
@@ -103,14 +109,7 @@ return false;
                        'emptytext' => 'Esquina..',                          
                   )
         ),  
-
-  		array(
-                    'class' => 'bootstrap.widgets.TbToggleColumn',
-                    'toggleAction' => 'apartamento/toggle',
-                    'name' => 'activo',
-                    'header' => 'Activo',
-                    'filter'=>false,
-        ),      
+      
 array(
 'class'=>'booster.widgets.TbButtonColumn',
 ),

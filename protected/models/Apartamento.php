@@ -105,6 +105,7 @@ class Apartamento extends CActiveRecord
 		$criteria->compare('metraje_apartamento',$this->metraje_apartamento,true);
 		$criteria->compare('num_estacionamiento',$this->num_estacionamiento,true);
 		$criteria->compare('id_edificio',$this->id_edificio);
+		$criteria->compare('id_proyecto',$this->id_proyecto);
 		$criteria->compare('esquina',$this->esquina,true);
 
 		return new CActiveDataProvider($this, array(

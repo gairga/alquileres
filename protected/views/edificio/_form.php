@@ -7,9 +7,7 @@
 
 <?php echo $form->errorSummary($model); ?>
 
-	<?php echo $form->textFieldGroup($model,'nom_edificio',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5','maxlength'=>255)))); ?>
-
-	<?php
+  <?php
             $this->widget(
               'booster.widgets.TbSelect2', array(
               'model' => $model,
@@ -25,6 +23,10 @@
               ),
             ));
   ?>
+
+	<?php echo $form->textFieldGroup($model,'nom_edificio',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5','maxlength'=>255)))); ?>
+
+
 
 	<?php echo $form->textFieldGroup($model,'cant',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>
 

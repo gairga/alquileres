@@ -9,7 +9,7 @@ array('label'=>'Manage Edificio','url'=>array('admin')),
 );
 ?>
 
-<h1>Edificios</h1>
+<button type="button" class="btn btn-warning">TORRES</button>
 
 <?php $this->widget('booster.widgets.TbListView',array(
 'dataProvider'=>$dataProvider,

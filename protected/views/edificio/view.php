@@ -12,12 +12,12 @@ array('label'=>'Delete Edificio','url'=>'#','linkOptions'=>array('submit'=>array
 array('label'=>'Manage Edificio','url'=>array('admin')),
 );
 ?>
-
-<h1>View Edificio #<?php echo $model->id_edificio; ?></h1>
+<button type="button" class="btn btn-warning">TORRE #<?php echo $model->id_edificio; ?></button>
 
 <?php $this->widget('booster.widgets.TbDetailView',array(
 'data'=>$model,
 'attributes'=>array(
+		'idProyecto.nom_proyecto',
 		'id_edificio',
 		'nom_edificio',
 ),
