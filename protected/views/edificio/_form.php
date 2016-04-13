@@ -3,134 +3,30 @@
 	'enableAjaxValidation'=>false,
 )); ?>
 
-
-
-		<?php echo $form->dropDownListGroup(
-			$model,
-			'id_proyecto',
-			array(
-				'wrapperHtmlOptions' => array(
-					'class' => 'col-sm-5',
-				),
-				'widgetOptions' => array(
-					'data' => array('Something ...', 'TOSCANA', ' LOS TONELES'),
-					'htmlOptions' => array(),
-				)
-			)
-		); ?>
-<p class="help-block">Fields with <span class="required">*</span> are required.</p>
+<p class="help-block">Los campos con<span class="required">*</span> son requeridos.</p>
 
 <?php echo $form->errorSummary($model); ?>
 
 	<?php echo $form->textFieldGroup($model,'nom_edificio',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5','maxlength'=>255)))); ?>
 
-<button type="button" class="btn btn-warning">N° de Apartamentos</button>
-<br/><br/>
+	<?php
+            $this->widget(
+              'booster.widgets.TbSelect2', array(
+              'model' => $model,
+              'attribute' => 'id_proyecto',
+              'data' => CHtml::listData(Proyecto::model()->findAll(), 'id_proyecto', 'nom_proyecto'),
+              'options' => array(
+              'placeholder' => "Proyecto",
+               /* 'allowClear'=>true,
+                'minimumInputLength'=>2,*/
+              ),
+              'htmlOptions'=>array(
+                'style'=>'width:380px',
+              ),
+            ));
+  ?>
 
-<div class="row">
-  <div class="col-xs-3">
-    <input type="text" class="form-control" placeholder="A1">
-<?php
-    $this->widget(
-    'booster.widgets.TbSwitch',
-    array(
-        'name' => 'testToggleButton1',
-        'options' => array(
-            'size' => 'large', //null, 'mini', 'small', 'normal', 'large
-            'onColor' => 'success', // 'primary', 'info', 'success', 'warning', 'danger', 'default'
-            'offColor' => 'danger',  // 'primary', 'info', 'success', 'warning', 'danger', 'default'
-        ),
-    )
-);
-?>
-  </div>
-  <div class="col-xs-4">
-    <input type="text" class="form-control" placeholder="A2">
-    <?php
-    $this->widget(
-    'booster.widgets.TbSwitch',
-    array(
-        'name' => 'testToggleButton2',
-        'options' => array(
-            'size' => 'large', //null, 'mini', 'small', 'normal', 'large
-            'onColor' => 'success', // 'primary', 'info', 'success', 'warning', 'danger', 'default'
-            'offColor' => 'danger',  // 'primary', 'info', 'success', 'warning', 'danger', 'default'
-        ),
-    )
-);
-?>
-  </div>
-  <div class="col-xs-5">
-    <input type="text" class="form-control" placeholder="A3">
-    <?php
-    $this->widget(
-    'booster.widgets.TbSwitch',
-    array(
-        'name' => 'testToggleButton3',
-        'options' => array(
-            'size' => 'large', //null, 'mini', 'small', 'normal', 'large
-            'onColor' => 'success', // 'primary', 'info', 'success', 'warning', 'danger', 'default'
-            'offColor' => 'danger',  // 'primary', 'info', 'success', 'warning', 'danger', 'default'
-        ),
-    )
-);
-?>
-  </div>
-</div>
-<br/><br/>
-<button type="button" class="btn btn-warning">N° de Locales</button>
-<br/><br/>
-
-<div class="row">
-  <div class="col-xs-3">
-    <input type="text" class="form-control" placeholder="A1">
-    <?php
-    $this->widget(
-    'booster.widgets.TbSwitch',
-    array(
-        'name' => 'testToggleButtonA',
-        'options' => array(
-            'size' => 'large', //null, 'mini', 'small', 'normal', 'large
-            'onColor' => 'success', // 'primary', 'info', 'success', 'warning', 'danger', 'default'
-            'offColor' => 'danger',  // 'primary', 'info', 'success', 'warning', 'danger', 'default'
-        ),
-    )
-);
-?>
-  </div>
-  <div class="col-xs-4">
-    <input type="text" class="form-control" placeholder="A2">
-    <?php
-    $this->widget(
-    'booster.widgets.TbSwitch',
-    array(
-        'name' => 'testToggleButtonB',
-        'options' => array(
-            'size' => 'large', //null, 'mini', 'small', 'normal', 'large
-            'onColor' => 'success', // 'primary', 'info', 'success', 'warning', 'danger', 'default'
-            'offColor' => 'danger',  // 'primary', 'info', 'success', 'warning', 'danger', 'default'
-        ),
-    )
-);
-?>
-  </div>
-  <div class="col-xs-5">
-    <input type="text" class="form-control" placeholder="A3">
-    <?php
-    $this->widget(
-    'booster.widgets.TbSwitch',
-    array(
-        'name' => 'testToggleButtonC',
-        'options' => array(
-            'size' => 'large', //null, 'mini', 'small', 'normal', 'large
-            'onColor' => 'success', // 'primary', 'info', 'success', 'warning', 'danger', 'default'
-            'offColor' => 'danger',  // 'primary', 'info', 'success', 'warning', 'danger', 'default'
-        ),
-    )
-);
-?>
-  </div>
-</div>
+	<?php echo $form->textFieldGroup($model,'cant',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>
 
 <div class="form-actions">
 	<?php $this->widget('booster.widgets.TbButton', array(

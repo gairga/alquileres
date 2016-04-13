@@ -213,7 +213,7 @@ $(function(){
                     'htmlOptions'=>array('class'=>'span5')), 
                      'prepend'=>'<i class="glyphicon glyphicon-calendar"></i>', 'append'=>'Click on Month/Year to select a different Month/Year.')); ?>
 
-    <div class="row">
+    
        <?php echo $form->labelEx($contrato,'id_tipo_pago'); ?>
     <?php echo $form->dropDownList($contrato, 'id_tipo_pago', CHtml::listData(TipoPago::model()->findAll(array('order'=>'nom_tipo_pago')), 'id_tipo_pago','nom_tipo_pago'),
           array(
@@ -221,9 +221,13 @@ $(function(){
           'empty'=>'Seleccionar..')); ?>
 
     <?php echo $form->error($contrato,'id_tipo_pago'); ?>
-  </div>
+
   <?php echo $form->textFieldGroup($contrato,'monto_alquiler',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>
 
+  <?php echo $form->textFieldGroup($contrato,'fecha_corte_pago',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>
+
+    <?php echo $form->textFieldGroup($contrato,'cuota_pago',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>
+    
 <div class="form-actions">
   <?php $this->widget('booster.widgets.TbButton', array(
       'buttonType'=>'submit',

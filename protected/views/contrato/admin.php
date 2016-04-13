@@ -47,8 +47,12 @@ return false;
 		'id_cliente',
 		'inicio_contrato',
 		'fin_contrato',
-		'tipo_pago',
+		'id_tipo_pago',
 		'monto_alquiler',
+		/*
+		'cuota_pago',
+		'fecha_corte_pago',
+		*/
 array(
 'class'=>'booster.widgets.TbButtonColumn',
 ),

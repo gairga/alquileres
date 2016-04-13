@@ -18,19 +18,16 @@ array('label'=>'Administrar Alquiler','url'=>array('admin')),
 <?php $this->widget('booster.widgets.TbDetailView',array(
 'data'=>$model,
 'attributes'=>array(
-		'id_pago_alquiler',
-		'id_contrato',
-		'fecha_corte_pago',
-		'cuota_pago',
-		'cuota_mensual',
-		'monto_pagado',
-		'saldo_pendiente',
-		'fecha_ultimo_pago',
-		'monto_alquiler',
+		'idContrato.id_contrato',
+		'idCliente.nom_cliente',
+		'idCliente.ape_cliente',
 		'idProyecto.nom_proyecto',
 		'idEdificio.nom_edificio',
 		'idApartamento.nom_apartamento',
-		'idCliente.nom_cliente',
-		'idCliente.ape_cliente',
+		'idContrato.cuota_pago',
+		'idContrato.monto_alquiler',
+		'idContrato.fecha_corte_pago',
+
+
 ),
 )); ?>

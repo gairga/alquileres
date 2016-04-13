@@ -1,8 +1,7 @@
-<?php 
-$form=$this->beginWidget('booster.widgets.TbActiveForm',array(
-  'id'=>'apartamento-form',
+<?php $form=$this->beginWidget('booster.widgets.TbActiveForm',array(
+  'id'=>'pago-alquiler-form',
   'enableAjaxValidation'=>false,
-));
+)); 
 
  $this->menu=array(
   array('label'=>'List PagoAlquiler','url'=>array('index')),
@@ -40,66 +39,62 @@ $form=$this->beginWidget('booster.widgets.TbActiveForm',array(
         N° de Identificación: <?php echo $cliente->num_identificacion;?> <br/>  
         Inicio de Contrato: <?php echo $contrato->inicio_contrato;?> <br/>
         N° de Contrato: <?php echo $contrato->id_contrato; ?> <br/>
-        Cuota de Pago: <?php echo "";?> <br/>
-        Feha de Corte de Pago: <?php echo "";?> <br/>
+        Cuota de Pago: <?php echo $contrato->cuota_pago; ?> <br/>
+        Feha de Corte de Pago:  <?php echo $contrato->fecha_corte_pago; ?> <br/>
 
       </div>
     </div>
 
     <br/>
  <div class="panel panel-danger class">
- 
-   <div class="panel-heading">INFORMACIÓN GENERAL</div>
-      <div class="panel-body">
-  
-  
+  <div class="panel-heading">INFORMACIÓN GENERAL</div>
+    <div class="panel-body">
+      
+      <div class="form-group">
+          <?php echo $form->datePickerGroup($model,'fecha_pago',array('widgetOptions'=>array('options'=>array(
+                                 'format' => 'yyyy-mm-dd'
+                    ),'htmlOptions'=>array('class'=>'span5')), 'prepend'=>'<i class="glyphicon glyphicon-calendar"></i>', 'append'=>'Seleccione un mes y un año')); ?>
+      </div>
+     
+      <div class="form-group">
+      <?php echo $form->textFieldGroup($model,'num_recibo',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>
+      </div>
 
-  
-    <div class="form-group">
-    <?php echo $form->textFieldGroup($model,'fecha_pago',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>
+      <div class="form-group">
+       <?php echo $form->labelEx($model,'id_meses'); ?>
+    <?php echo $form->dropDownList($model, 'id_meses', CHtml::listData(Meses::model()->findAll(array('order'=>'id_meses')), 'id_meses','descripcion'),
+          array(
+  'class'=>'form-control',
+          'empty'=>'Seleccionar..')); ?>
+
+    <?php echo $form->error($model,'id_meses'); ?>
+      </div>
+
+      <div class="form-group">
+       <?php echo $form->textFieldGroup($model,'monto_pagado',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>
+      </div>
+      
+
+      <div class="form-group">
+      <?php echo $form->textFieldGroup($model,'monto',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>
+      </div>
+
+      <div class="form-group">
+      <?php echo $form->textFieldGroup($model,'concepto',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>
+      </div>
+
+      <div class="form-group">
+      <?php echo $form->textFieldGroup($model,'observacion',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>
+     </div>
+
+    </div>
   </div>
-  <div class="form-group">
-    <label for="exampleInputEmail2">N° de Recibo</label>
-    <input type="email" class="form-control" id="exampleInputEmail2" placeholder="1126">
-      </div>
+<div class="form-actions">
+  <?php $this->widget('booster.widgets.TbButton', array(
+      'buttonType'=>'submit',
+      'context'=>'primary',
+      'label'=>$model->isNewRecord ? 'Create' : 'Save',
+    )); ?>
+</div>
 
-   <div class="form-group">
-    <label for="exampleInputName2">Pago Correspondiente al Corte</label>
-    <input type="text" class="form-control" id="exampleInputName2" placeholder="2">
-  </div>
-  <div class="form-group">
-  
-   <?php echo $form->textFieldGroup($model,'monto_pagado',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>
-      </div>
-
-       <div class="form-group">
-    <label for="exampleInputEmail2">Monto </label>
-    <input type="email" class="form-control" id="exampleInputEmail2" placeholder="450">
-      </div>
-
-
-       <div class="form-group">
-    <label for="exampleInputEmail2">Concepto</label>
-    <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Pago Cuota">
-      </div>
-
-       <div class="form-group">
-    <label for="exampleInputEmail2">Recargo</label>
-    <input type="email" class="form-control" id="exampleInputEmail2" placeholder="SI / NO">
-      </div>
-
-
-       <div class="form-group">
-    <label for="exampleInputEmail2">Concepto</label>
-    <input type="email" class="form-control" id="exampleInputEmail2" placeholder="---">
-      </div>
-
-             <div class="form-group">
-    <label for="exampleInputEmail2">Observaciones</label>
-    <input type="email" class="form-control" id="exampleInputEmail2" placeholder="--">
-      </div>
-
- </div>
-  </div>
-
-  <?php $this->endWidget(); ?>
+<?php $this->endWidget(); ?>

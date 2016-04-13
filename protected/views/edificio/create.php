@@ -5,10 +5,11 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-array('label'=>'List Edificio','url'=>array('index')),
-array('label'=>'Manage Edificio','url'=>array('admin')),
+array('label'=>'Listar Edificio','url'=>array('index')),
+array('label'=>'Admiistrar Edificio','url'=>array('admin')),
 );
 ?>
-<button type="button" class="btn btn-warning">Crear Edificio</button>
+<br/>
+<button type="button" class="btn btn-warning">CREAR ...</button>
 
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

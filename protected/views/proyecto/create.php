@@ -5,11 +5,12 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-array('label'=>'List Proyecto','url'=>array('index')),
-array('label'=>'Manage Proyecto','url'=>array('admin')),
+array('label'=>'Listar Proyecto','url'=>array('index')),
+array('label'=>'Administrar Proyecto','url'=>array('admin')),
 );
 ?>
 
+<br/>
+<button type="button" class="btn btn-warning">CREAR PROYECTO</button>
 
-<button type="button" class="btn btn-warning">Create Proyecto</button>
 <?php echo $this->renderPartial('_form', array('model'=>$model)); ?>

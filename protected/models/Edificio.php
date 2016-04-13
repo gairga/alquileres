@@ -8,9 +8,12 @@
  * @property string $nom_edificio
  * @property integer $id_proyecto
  * @property integer $id_apartamento
+ * @property string $cant
+ * @property integer $pisos
  *
  * The followings are the available model relations:
  * @property Apartamento[] $apartamentos
+ * @property PagoAlquiler[] $pagoAlquilers
  * @property Proyecto $idProyecto
  * @property Apartamento $idApartamento
  */
@@ -32,11 +35,12 @@ class Edificio extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id_proyecto, id_apartamento', 'numerical', 'integerOnly'=>true),
+			array('id_proyecto, id_apartamento, pisos', 'numerical', 'integerOnly'=>true),
 			array('nom_edificio', 'length', 'max'=>255),
+			array('cant', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id_edificio, nom_edificio, id_proyecto, id_apartamento', 'safe', 'on'=>'search'),
+			array('id_edificio, nom_edificio, id_proyecto, id_apartamento, cant, pisos', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -49,6 +53,7 @@ class Edificio extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'apartamentos' => array(self::HAS_MANY, 'Apartamento', 'id_edificio'),
+			'pagoAlquilers' => array(self::HAS_MANY, 'PagoAlquiler', 'id_edificio'),
 			'idProyecto' => array(self::BELONGS_TO, 'Proyecto', 'id_proyecto'),
 			'idApartamento' => array(self::BELONGS_TO, 'Apartamento', 'id_apartamento'),
 		);
@@ -60,10 +65,12 @@ class Edificio extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id_edificio' => 'Edificio',
+			'id_edificio' => 'Id Edificio',
 			'nom_edificio' => 'Nom Edificio',
 			'id_proyecto' => 'Id Proyecto',
 			'id_apartamento' => 'Id Apartamento',
+			'cant' => 'Cant',
+			'pisos' => 'Pisos',
 		);
 	}
 
@@ -89,6 +96,8 @@ class Edificio extends CActiveRecord
 		$criteria->compare('nom_edificio',$this->nom_edificio,true);
 		$criteria->compare('id_proyecto',$this->id_proyecto);
 		$criteria->compare('id_apartamento',$this->id_apartamento);
+		$criteria->compare('cant',$this->cant,true);
+		$criteria->compare('pisos',$this->pisos);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

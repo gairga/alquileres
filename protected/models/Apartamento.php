@@ -10,8 +10,13 @@
  * @property string $id_cliente
  * @property string $activo
  * @property integer $id_proyecto
+ * @property string $metraje_apartamento
+ * @property string $num_estacionamiento
+ * @property string $esquina
  *
  * The followings are the available model relations:
+ * @property PagoAlquiler[] $pagoAlquilers
+ * @property Edificio[] $edificios
  * @property Edificio $idEdificio
  * @property Proyecto $idProyecto
  */
@@ -35,10 +40,10 @@ class Apartamento extends CActiveRecord
 		return array(
 			array('id_proyecto', 'numerical', 'integerOnly'=>true),
 			array('nom_apartamento', 'length', 'max'=>255),
-			array('id_edificio, id_cliente, activo', 'safe'),
+			array('id_edificio, id_cliente, activo, metraje_apartamento, num_estacionamiento, esquina', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id_apartamento, id_edificio, nom_apartamento, id_cliente, activo, id_proyecto', 'safe', 'on'=>'search'),
+			array('id_apartamento, id_edificio, nom_apartamento, id_cliente, activo, id_proyecto, metraje_apartamento, num_estacionamiento, esquina', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -50,6 +55,8 @@ class Apartamento extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'pagoAlquilers' => array(self::HAS_MANY, 'PagoAlquiler', 'id_apartamento'),
+			'edificios' => array(self::HAS_MANY, 'Edificio', 'id_apartamento'),
 			'idEdificio' => array(self::BELONGS_TO, 'Edificio', 'id_edificio'),
 			'idProyecto' => array(self::BELONGS_TO, 'Proyecto', 'id_proyecto'),
 		);
@@ -61,12 +68,15 @@ class Apartamento extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id_apartamento' => 'Apartamento',
-			'id_edificio' => 'Edificio',
+			'id_apartamento' => 'Id Apartamento',
+			'id_edificio' => 'Id Edificio',
 			'nom_apartamento' => 'Nom Apartamento',
 			'id_cliente' => 'Id Cliente',
 			'activo' => 'Activo',
-			'id_proyecto' => 'Proyecto',
+			'id_proyecto' => 'Id Proyecto',
+			'metraje_apartamento' => 'Metraje Apartamento',
+			'num_estacionamiento' => 'Num Estacionamiento',
+			'esquina' => 'Esquina',
 		);
 	}
 
@@ -89,11 +99,13 @@ class Apartamento extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id_apartamento',$this->id_apartamento,true);
-		$criteria->compare('id_edificio',$this->id_edificio,true);
 		$criteria->compare('nom_apartamento',$this->nom_apartamento,true);
 		$criteria->compare('id_cliente',$this->id_cliente,true);
 		$criteria->compare('activo',$this->activo,true);
-		$criteria->compare('id_proyecto',$this->id_proyecto);
+		$criteria->compare('metraje_apartamento',$this->metraje_apartamento,true);
+		$criteria->compare('num_estacionamiento',$this->num_estacionamiento,true);
+		$criteria->compare('id_edificio',$this->id_edificio);
+		$criteria->compare('esquina',$this->esquina,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

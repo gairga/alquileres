@@ -186,8 +186,15 @@ public function actionNewAlquiler()
     $contrato->attributes=$_POST['Contrato'];		
 	$model->attributes=$_POST['PagoAlquiler'];
 	$contrato->id_cliente=$model->id_cliente;
+	$model->observacion='Registro Contrato';
+	//1.2.2 ACTUALIZAMOS EL TRAMITE PASO
+	$apartamento = Apartamento::model()->updateByPk($model->id_apartamento,array(  
+	                          'activo'                 =>1,
+	                          'id_cliente'                =>$model->id_cliente	                               
+	                                            )); 
+
 	if($contrato->save()){
-		$model->id_contrato=$contrato->id_contrato;	
+		$model->id_contrato=$contrato->id_contrato;		
 	}
 	
 	if($model->save())
@@ -204,20 +211,30 @@ public function actionRegistrarPago($id)
 {
 	//var_dump($id);
 	$model=new PagoAlquiler;
-	
+    $fecha_ultimo_pago = date("Y-m-d");
+//var_dump($fecha_ultimo_pago);die;
     $contrato=Contrato::model()->find('id_cliente=:id_cliente',array(':id_cliente'=>$id));
+    $apartamento=Apartamento::model()->find('id_cliente=:id_cliente',array(':id_cliente'=>$id));
     $cliente=Cliente::model()->find('id_cliente=:id_cliente',array(':id_cliente'=>$id));
+
+    //var_dump($cliente);die;
 	// Uncomment the following line if AJAX validation is needed
 	// $this->performAjaxValidation($model);
 
-	if(isset($_POST['PagoAlquiler']) && isset($_POST['Contrato'])) 
+	if(isset($_POST['PagoAlquiler']))
 	{
-    $contrato->attributes=$_POST['Contrato'];		
-	$model->attributes=$_POST['PagoAlquiler'];
-	$contrato->id_cliente=$model->id_cliente;
-	if($contrato->save())
+		$model->attributes=$_POST['PagoAlquiler'];
+		$saldo_pendiente = $contrato->monto_alquiler - $model->monto;
+		$model->monto_alquiler = $contrato->monto_alquiler;
+		$model->fecha_ultimo_pago =	$fecha_ultimo_pago;
+		$model->id_proyecto = $apartamento->id_proyecto;
+		$model->id_edificio = $apartamento->id_edificio;
+		$model->id_apartamento = $apartamento->id_apartamento;
+		$model->id_cliente = $id;
+		$model->id_contrato = $contrato->id_contrato;
+	
 	if($model->save())
-			$this->redirect(array('view','id'=>$model->id_pago_alquiler));
+		$this->redirect(array('view','id'=>$model->id_pago_alquiler));
 	}
 
 	$this->render('registrarpago',array(

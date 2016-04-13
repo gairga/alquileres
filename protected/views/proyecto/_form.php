@@ -2,8 +2,8 @@
 	'id'=>'proyecto-form',
 	'enableAjaxValidation'=>false,
 )); ?>
-
-<p class="help-block">Fields with <span class="required">*</span> are required.</p>
+<br/>
+<p class="help-block">Los campos con <span class="required">*</span> son requeridos.</p>
 
 <?php echo $form->errorSummary($model); ?>
 
@@ -15,7 +15,7 @@
 	<?php $this->widget('booster.widgets.TbButton', array(
 			'buttonType'=>'submit',
 			'context'=>'primary',
-			'label'=>$model->isNewRecord ? 'Create' : 'Save',
+			'label'=>$model->isNewRecord ? 'Guardar' : 'Save',
 		)); ?>
 </div>
 

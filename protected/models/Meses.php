@@ -1,21 +1,23 @@
 <?php
 
 /**
- * This is the model class for table "Proyecto".
+ * This is the model class for table "meses".
  *
- * The followings are the available columns in table 'Proyecto':
- * @property string $id_proyecto
- * @property string $nom_proyecto
- * @property string $cod_proyecto
+ * The followings are the available columns in table 'meses':
+ * @property integer $id_meses
+ * @property string $descripcion
+ *
+ * The followings are the available model relations:
+ * @property PagoAlquiler[] $pagoAlquilers
  */
-class Proyecto extends CActiveRecord
+class Meses extends CActiveRecord
 {
 	/**
 	 * @return string the associated database table name
 	 */
 	public function tableName()
 	{
-		return 'Proyecto';
+		return 'meses';
 	}
 
 	/**
@@ -26,11 +28,10 @@ class Proyecto extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('nom_proyecto', 'length', 'max'=>255),
-			array('cod_proyecto', 'safe'),
+			array('descripcion', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id_proyecto, nom_proyecto, cod_proyecto', 'safe', 'on'=>'search'),
+			array('id_meses, descripcion', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -42,6 +43,7 @@ class Proyecto extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'pagoAlquilers' => array(self::HAS_MANY, 'PagoAlquiler', 'id_meses'),
 		);
 	}
 
@@ -51,9 +53,8 @@ class Proyecto extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id_proyecto' => 'Proyecto',
-			'nom_proyecto' => 'Nombre del Proyecto',
-			'cod_proyecto' => 'Codigo del Proyecto',
+			'id_meses' => 'Id Meses',
+			'descripcion' => 'Descripcion',
 		);
 	}
 
@@ -75,9 +76,8 @@ class Proyecto extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('id_proyecto',$this->id_proyecto,true);
-		$criteria->compare('nom_proyecto',$this->nom_proyecto,true);
-		$criteria->compare('cod_proyecto',$this->cod_proyecto,true);
+		$criteria->compare('id_meses',$this->id_meses);
+		$criteria->compare('descripcion',$this->descripcion,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -88,7 +88,7 @@ class Proyecto extends CActiveRecord
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return Proyecto the static model class
+	 * @return Meses the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{

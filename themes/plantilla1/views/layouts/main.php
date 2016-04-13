@@ -49,11 +49,11 @@ if($user!=""){
 							)
                                 ),
   //                              array('label'=>'REMUNERACION', 'url'=>array('/calculoRemuneracion/calculoremunecacioncobradora')),
-              array('label'=>'EDIFICIO', 'url'=>array('/edificio/index'),
+              array('label'=>'TORRE', 'url'=>array('/edificio/index'),
               'items'=>array(
                       array('label'=>'Nuevo', 'url'=>array('/edificio/create')),
                       array('label'=>'Listado', 'url'=>array('/edificio/index')),
-                      array('label'=>'Asociar Apartamento', 'url'=>array('/edificio/asociarapartamento')),                       
+                      array('label'=>'Asociar Apartamento', 'url'=>array('/apartamento/admin')),                       
                             )
                                 ),
               

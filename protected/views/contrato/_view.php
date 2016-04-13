@@ -16,13 +16,23 @@
 	<?php echo CHtml::encode($data->fin_contrato); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('tipo_pago')); ?>:</b>
-	<?php echo CHtml::encode($data->tipo_pago); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('id_tipo_pago')); ?>:</b>
+	<?php echo CHtml::encode($data->id_tipo_pago); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('monto_alquiler')); ?>:</b>
 	<?php echo CHtml::encode($data->monto_alquiler); ?>
 	<br />
 
+	<b><?php echo CHtml::encode($data->getAttributeLabel('cuota_pago')); ?>:</b>
+	<?php echo CHtml::encode($data->cuota_pago); ?>
+	<br />
+
+	<?php /*
+	<b><?php echo CHtml::encode($data->getAttributeLabel('fecha_corte_pago')); ?>:</b>
+	<?php echo CHtml::encode($data->fecha_corte_pago); ?>
+	<br />
+
+	*/ ?>
 
 </div>

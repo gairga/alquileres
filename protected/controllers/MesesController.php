@@ -1,6 +1,6 @@
 <?php
 
-class ApartamentoController extends Controller
+class MesesController extends Controller
 {
 /**
 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -61,16 +61,16 @@ $this->render('view',array(
 */
 public function actionCreate()
 {
-$model=new Apartamento;
+$model=new Meses;
 
 // Uncomment the following line if AJAX validation is needed
 // $this->performAjaxValidation($model);
 
-if(isset($_POST['Apartamento']))
+if(isset($_POST['Meses']))
 {
-$model->attributes=$_POST['Apartamento'];
+$model->attributes=$_POST['Meses'];
 if($model->save())
-$this->redirect(array('view','id'=>$model->id_apartamento));
+$this->redirect(array('view','id'=>$model->id_meses));
 }
 
 $this->render('create',array(
@@ -90,11 +90,11 @@ $model=$this->loadModel($id);
 // Uncomment the following line if AJAX validation is needed
 // $this->performAjaxValidation($model);
 
-if(isset($_POST['Apartamento']))
+if(isset($_POST['Meses']))
 {
-$model->attributes=$_POST['Apartamento'];
+$model->attributes=$_POST['Meses'];
 if($model->save())
-$this->redirect(array('view','id'=>$model->id_apartamento));
+$this->redirect(array('view','id'=>$model->id_meses));
 }
 
 $this->render('update',array(
@@ -127,7 +127,7 @@ throw new CHttpException(400,'Invalid request. Please do not repeat this request
 */
 public function actionIndex()
 {
-$dataProvider=new CActiveDataProvider('Apartamento');
+$dataProvider=new CActiveDataProvider('Meses');
 $this->render('index',array(
 'dataProvider'=>$dataProvider,
 ));
@@ -138,10 +138,10 @@ $this->render('index',array(
 */
 public function actionAdmin()
 {
-$model=new Apartamento('search');
+$model=new Meses('search');
 $model->unsetAttributes();  // clear any default values
-if(isset($_GET['Apartamento']))
-$model->attributes=$_GET['Apartamento'];
+if(isset($_GET['Meses']))
+$model->attributes=$_GET['Meses'];
 
 $this->render('admin',array(
 'model'=>$model,
@@ -155,7 +155,7 @@ $this->render('admin',array(
 */
 public function loadModel($id)
 {
-$model=Apartamento::model()->findByPk($id);
+$model=Meses::model()->findByPk($id);
 if($model===null)
 throw new CHttpException(404,'The requested page does not exist.');
 return $model;
@@ -167,7 +167,7 @@ return $model;
 */
 protected function performAjaxValidation($model)
 {
-if(isset($_POST['ajax']) && $_POST['ajax']==='apartamento-form')
+if(isset($_POST['ajax']) && $_POST['ajax']==='meses-form')
 {
 echo CActiveForm::validate($model);
 Yii::app()->end();

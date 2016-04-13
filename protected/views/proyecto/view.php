@@ -12,8 +12,7 @@ array('label'=>'Delete Proyecto','url'=>'#','linkOptions'=>array('submit'=>array
 array('label'=>'Manage Proyecto','url'=>array('admin')),
 );
 ?>
-
-<h1>View Proyecto #<?php echo $model->id_proyecto; ?></h1>
+<button type="button" class="btn btn-warning">PROYECTO #<?php echo $model->id_proyecto; ?></button>
 
 <?php $this->widget('booster.widgets.TbDetailView',array(
 'data'=>$model,
