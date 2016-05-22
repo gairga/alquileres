@@ -74,6 +74,7 @@ public function actionCreate()
 		//if($model->save()){
 			$model->save();
 			$edificio=$model->id_edificio;
+			$id_proyecto=$model->id_proyecto;
 		    $i=0;
 			$cant = $model->cant;
 			
@@ -81,6 +82,7 @@ public function actionCreate()
 			 		 while($i <= $cant) {
 			            $m = new Apartamento();
 			            $m->id_edificio=$edificio;
+			            $m->id_proyecto=$id_proyecto;
 			            $m->activo=2;
 			            $m->save();
 			            $i++;

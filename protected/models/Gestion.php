@@ -70,7 +70,7 @@ class Gestion extends CActiveRecord
 			'id_gestion' => 'Id Gestion',
 			'contactado_llamada' => 'Contactado Llamada',
 			'llamada_voz' => 'Llamada Voz',
-			'id_acuerdo_cobros' => 'Id Acuerdo Cobros',
+			'id_acuerdo_cobros' => 'Acuerdo de Cobro',
 			'fecha_acuerdo' => 'Fecha Acuerdo',
 			'id_gestion_llamadas' => 'Id Gestion Llamadas',
 			'observaciones' => 'Observaciones',

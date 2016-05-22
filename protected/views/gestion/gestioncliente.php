@@ -32,7 +32,7 @@ return false;
 'dataProvider'=>$model->search(),
 'filter'=>$model,
 'columns'=>array(
-		'id_cliente',
+		
 		'nom_cliente',
 		'ape_cliente',
 		'num_identificacion',
