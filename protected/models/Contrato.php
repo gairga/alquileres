@@ -14,9 +14,10 @@
  * @property string $fecha_corte_pago
  *
  * The followings are the available model relations:
+ * @property PagoAlquiler[] $pagoAlquilers
  * @property Contrato $idContrato
  * @property Contrato $contrato
- * @property PagoAlquiler[] $pagoAlquilers
+ * @property Cliente $idCliente
  */
 class Contrato extends CActiveRecord
 {
@@ -52,9 +53,10 @@ class Contrato extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'pagoAlquilers' => array(self::HAS_MANY, 'PagoAlquiler', 'id_contrato'),
 			'idContrato' => array(self::BELONGS_TO, 'Contrato', 'id_contrato'),
 			'contrato' => array(self::HAS_ONE, 'Contrato', 'id_contrato'),
-			'pagoAlquilers' => array(self::HAS_MANY, 'PagoAlquiler', 'id_contrato'),
+			'idCliente' => array(self::BELONGS_TO, 'Cliente', 'id_cliente'),
 		);
 	}
 

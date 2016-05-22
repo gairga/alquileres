@@ -20,6 +20,10 @@
  * @property string $monto
  * @property string $observacion
  * @property integer $id_meses
+ * @property string $pago1
+ * @property string $pago2
+ * @property string $pago3
+ * @property integer $id_tipo_pago
  *
  * The followings are the available model relations:
  * @property Proyecto $idProyecto
@@ -28,6 +32,7 @@
  * @property Cliente $idCliente
  * @property Contrato $idContrato
  * @property Meses $idMeses
+ * @property TipoPago $idTipoPago
  */
 class PagoAlquiler extends CActiveRecord
 {
@@ -47,11 +52,11 @@ class PagoAlquiler extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id_contrato, id_proyecto, id_edificio, id_apartamento, id_cliente, id_meses', 'numerical', 'integerOnly'=>true),
-			array('fecha_pago, monto_pagado, saldo_pendiente, fecha_ultimo_pago, monto_alquiler, num_recibo, concepto, monto, observacion', 'safe'),
+			array('id_contrato, id_proyecto, id_edificio, id_apartamento, id_cliente, id_meses, id_tipo_pago', 'numerical', 'integerOnly'=>true),
+			array('fecha_pago, monto_pagado, saldo_pendiente, fecha_ultimo_pago, monto_alquiler, num_recibo, concepto, monto, observacion, pago1, pago2, pago3', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id_pago_alquiler, id_contrato, fecha_pago, monto_pagado, saldo_pendiente, fecha_ultimo_pago, monto_alquiler, id_proyecto, id_edificio, id_apartamento, id_cliente, num_recibo, concepto, monto, observacion, id_meses', 'safe', 'on'=>'search'),
+			array('id_pago_alquiler, id_contrato, fecha_pago, monto_pagado, saldo_pendiente, fecha_ultimo_pago, monto_alquiler, id_proyecto, id_edificio, id_apartamento, id_cliente, num_recibo, concepto, monto, observacion, id_meses, pago1, pago2, pago3, id_tipo_pago', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -69,6 +74,7 @@ class PagoAlquiler extends CActiveRecord
 			'idCliente' => array(self::BELONGS_TO, 'Cliente', 'id_cliente'),
 			'idContrato' => array(self::BELONGS_TO, 'Contrato', 'id_contrato'),
 			'idMeses' => array(self::BELONGS_TO, 'Meses', 'id_meses'),
+			'idTipoPago' => array(self::BELONGS_TO, 'TipoPago', 'id_tipo_pago'),
 		);
 	}
 
@@ -93,7 +99,11 @@ class PagoAlquiler extends CActiveRecord
 			'concepto' => 'Concepto',
 			'monto' => 'Monto',
 			'observacion' => 'Observacion',
-			'id_meses' => 'Pago Correspondiente al Corte',
+			'id_meses' => 'Meses',
+			'pago1' => 'Pago1',
+			'pago2' => 'Pago2',
+			'pago3' => 'Pago3',
+			'id_tipo_pago' => 'Tipo Pago',
 		);
 	}
 
@@ -131,6 +141,10 @@ class PagoAlquiler extends CActiveRecord
 		$criteria->compare('monto',$this->monto,true);
 		$criteria->compare('observacion',$this->observacion,true);
 		$criteria->compare('id_meses',$this->id_meses);
+		$criteria->compare('pago1',$this->pago1,true);
+		$criteria->compare('pago2',$this->pago2,true);
+		$criteria->compare('pago3',$this->pago3,true);
+		$criteria->compare('id_tipo_pago',$this->id_tipo_pago);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

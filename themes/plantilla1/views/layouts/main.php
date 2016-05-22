@@ -38,41 +38,31 @@ if($user!=""){
     <?php $this->widget('zii.widgets.CMenu',array(
 			'items'=>array(
 				array('label'=>'INICIO', 'url'=>array('/site/index')),
-                                
-                  
-				array('label'=>'PROYECTOS', 'url'=>array('/proyecto/index'),
-							'items'=>array(
-								array('label'=>'Nuevo', 'url'=>array('/proyecto/create')),
-                array('label'=>'Listado', 'url'=>array('/proyecto/index')),
-							  //  array('label'=>'Asociar Edificio', 'url'=>array('/proyecto/asociaredificio')),                       
-             
-							)
-                                ),
-  //                              array('label'=>'REMUNERACION', 'url'=>array('/calculoRemuneracion/calculoremunecacioncobradora')),
-              array('label'=>'TORRE', 'url'=>array('/edificio/index'),
+
+        array('label'=>'GESTION', 'url'=>array('/gestion/inicio'),
               'items'=>array(
-                      array('label'=>'Nuevo', 'url'=>array('/edificio/create')),
-                      array('label'=>'Listado', 'url'=>array('/edificio/index')),
-                      array('label'=>'Asociar Apartamento', 'url'=>array('/apartamento/admin')),                       
-                            )
-                                ),
-              
-
-
+                array('label'=>'Nuevo', 'url'=>array('/gestion/create')),
+                array('label'=>'Listado', 'url'=>array('/gestion/index')),
+                //  array('label'=>'Asociar Edificio', 'url'=>array('/proyecto/asociaredificio')),                       
+             
+              )
+                                ),                                
+     
+  //                          
               array('label'=>'ALQUILER', 'url'=>array('/pagoAlquiler/index'),
               'items'=>array(
                       array('label'=>'Nuevo Alquiler', 'url'=>array('/pagoAlquiler/newalquiler')),
-                      array('label'=>'Listado', 'url'=>array('/pagoAlquiler/listarapartamento')),
+                      array('label'=>'Listado', 'url'=>array('/pagoAlquiler/index')),
                      // array('label'=>'Asociar Apartamento', 'url'=>array('/edificio/asociarapartamento')),                       
                             )
                                 ),
     
 
 
-              array('label'=>'PAGOS', 'url'=>array('/pagoAlquiler/index'),
+              array('label'=>'PAGOS', 'url'=>array('/pagoAlquiler/buscarclientes'),
 							'items'=>array(
 								array('label'=>'Registrar Pago', 'url'=>array('/pagoAlquiler/buscarclientes')),
-                array('label'=>'Detalle Pagos', 'url'=>array('/pagoAlquiler/detallespago')),
+                array('label'=>'Detalle Pagos', 'url'=>array('/pagoAlquiler/detallesdepago')),
            
 							)
                                 ),
@@ -82,11 +72,21 @@ if($user!=""){
               array('label'=>'CLIENTES', 'url'=>array('/cliente/index'),
               'items'=>array(
                 array('label'=>'Crear Cliente', 'url'=>array('/cliente/create')),
-                array('label'=>'Ver Cliente', 'url'=>array('/tramite/continuartramites')),
+                array('label'=>'Ver Cliente', 'url'=>array('/cliente/index')),
 
               )
                                 ),                
-				
+				  array('label'=>'ADMIN', 'url'=>array('#'),
+              'items'=>array(
+                array('label'=>'Mod Contrato', 'url'=>array('/plantillaContrato/update/1')),
+                array('label'=>'Mod Recibo', 'url'=>array('/PlantillaRecibo/create')),
+                array('label'=>'Nuevo Proyecto', 'url'=>array('/proyecto/create')),
+                array('label'=>'Listar Proyecto', 'url'=>array('/proyecto/index')),
+                array('label'=>'Nuevo Torre', 'url'=>array('/edificio/create')),
+                array('label'=>'Listar Torre', 'url'=>array('/edificio/index')),
+                array('label'=>'Asociar Apartamento', 'url'=>array('/apartamento/admin')),                       
+              )
+                                ),
                             
                                // array('label'=>'Usuarios', 'url'=>array('/usuarios/index')),
 				array('label'=>'INICIAR SESIÓN', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),

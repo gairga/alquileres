@@ -8,8 +8,8 @@ array('label'=>'Create Proyecto','url'=>array('create')),
 array('label'=>'Manage Proyecto','url'=>array('admin')),
 );
 ?>
+<button type="button" class="btn btn-warning">PROYECTOS</button>
 
-<h1>Proyectos</h1>
 
 <?php $this->widget('booster.widgets.TbListView',array(
 'dataProvider'=>$dataProvider,

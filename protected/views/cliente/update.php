@@ -12,7 +12,7 @@ $this->breadcrumbs=array(
 	array('label'=>'Manage Cliente','url'=>array('admin')),
 	);
 	?>
+<button type="button" class="btn btn-warning">ACTUALIZAR CLIENTE #<?php echo $model->id_cliente; ?></button>
 
-	<h1>Update Cliente <?php echo $model->id_cliente; ?></h1>
 
 <?php echo $this->renderPartial('_form',array('model'=>$model)); ?>

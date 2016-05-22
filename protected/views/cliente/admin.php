@@ -23,20 +23,9 @@ return false;
 ");
 ?>
 
-<h1>Manage Clientes</h1>
 
-<p>
-	You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>
-		&lt;&gt;</b>
-	or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.
-</p>
 
-<?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button btn')); ?>
-<div class="search-form" style="display:none">
-	<?php $this->renderPartial('_search',array(
-	'model'=>$model,
-)); ?>
-</div><!-- search-form -->
+<button type="button" class="btn btn-warning">ADMINISTRAR CLIENTE</button>
 
 <?php $this->widget('booster.widgets.TbGridView',array(
 'id'=>'cliente-grid',
@@ -48,6 +37,21 @@ return false;
 		'ape_cliente',
 		'num_identificacion',
 		'correo',
+		'direccion',
+		/*
+		'telefono',
+		'ocupacion',
+		'celular',
+		'sexo',
+		'estado_civil',
+		'lugar_trabajo',
+		'direccion_de_trabajo',
+		'telef_trabajo',
+		'pais',
+		'nacionalidad',
+		'referencia_personal',
+		'telef_referencia',
+		*/
 array(
 'class'=>'booster.widgets.TbButtonColumn',
 ),

@@ -4,8 +4,8 @@
 )); 
 
  $this->menu=array(
-  array('label'=>'List PagoAlquiler','url'=>array('index')),
-  array('label'=>'Manage PagoAlquiler','url'=>array('admin')),
+  array('label'=>'Listar Pagos de Alquiler','url'=>array('index')),
+  array('label'=>'Detalle de Pagos','url'=>array('detallesdepago')),
  ); 
  $nombre=null;
 ?>
@@ -29,6 +29,51 @@
   }
 }
 </style> 
+<script>
+
+$(function(){
+         $("#efectivo").css("display", "none");
+         $("#debito").css("display", "none");
+         $("#credito").css("display", "none");
+         // $("#PagoAlquiler").css("display", "block");
+         $('select#PagoAlquiler_id_tipo_pago').change(function () { 
+          var x = $('#PagoAlquiler_id_tipo_pago').val();
+              alert(x);
+              if(x==1){
+                $("#efectivo").css("display", "none");
+                $("#debito").css("display", "none");
+                $("#credito").css("display", "none");
+              }
+              if(x==2){
+                $("#efectivo").css("display", "none");
+                $("#debito").css("display", "none");
+                $("#credito").css("display", "none");
+              }
+              if(x==3){
+                $("#efectivo").css("display", "none");
+                $("#debito").css("display", "none");
+                $("#credito").css("display", "none");
+              }              
+              if(x==5){
+                $("#efectivo").css("display", "block");
+                $("#debito").css("display", "block");
+                $("#credito").css("display", "none");
+              }
+              if(x==6){
+                $("#efectivo").css("display", "block");
+                $("#credito").css("display", "block");
+                $("#debito").css("display", "none");
+              }
+              if(x==7){
+                $("#efectivo").css("display", "block");
+                $("#debito").css("display", "block");
+                $("#credito").css("display", "block");
+              }
+         });
+       
+});
+</script>
+
 <?php echo $form->errorSummary($model); ?>
  <div class="panel panel-primary">
       <div class="panel-heading">INFORMACIÓN GENERAL</div>
@@ -44,7 +89,28 @@
 
       </div>
     </div>
+           <div class='panel panel-primary'>
+            <div class='panel-heading'>DATOS DE LOS ULTIMOS PAGOS</div>
+            <div class='panel-body'>
+               <table border='1'>
+                <tr>               
+                 <th>Mes</th>
+                 <th>Monto Pagado</th>
+                 <th>Saldo Penditente</th>
+                </tr> 
+    <?php foreach ($pagoscliente as $row) {
+              echo $message = "<tr>
+                    <td>".$row['id_meses']."</td>                
+                    <td>".$row['monto_pagado']."</td>
+                   <td>".$row['saldo_pendiente']."</td>      
+                  </tr>                            
+           ";
+        }
 
+        ?>  
+         </table> 
+     </div>
+          </div>
     <br/>
  <div class="panel panel-danger class">
   <div class="panel-heading">INFORMACIÓN GENERAL</div>
@@ -71,6 +137,34 @@
       </div>
 
       <div class="form-group">
+       <?php echo $form->labelEx($model,'id_tipo_pago'); ?>
+    <?php echo $form->dropDownList($model, 'id_tipo_pago', CHtml::listData(TipoPago::model()->findAll(array('order'=>'id_tipo_pago')), 'id_tipo_pago','nom_tipo_pago'),
+          array(
+  'class'=>'form-control',
+          'empty'=>'Seleccionar..')); ?>
+
+    <?php echo $form->error($model,'id_meses'); ?>
+      </div>
+
+      <div id="efectivo">
+            <div class="form-group">
+             <?php echo $form->textFieldGroup($model,'pago1',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>
+            </div>
+      </div>
+
+      <div id="debito">
+        <div class="form-group">
+         <?php echo $form->textFieldGroup($model,'pago2',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>
+         </div>
+      </div>
+      
+      <div id="credito">
+        <div class="form-group">
+         <?php echo $form->textFieldGroup($model,'pago3',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>
+        </div>
+     </div>      
+
+      <div class="form-group">
        <?php echo $form->textFieldGroup($model,'monto_pagado',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>
       </div>
       
@@ -93,7 +187,7 @@
   <?php $this->widget('booster.widgets.TbButton', array(
       'buttonType'=>'submit',
       'context'=>'primary',
-      'label'=>$model->isNewRecord ? 'Create' : 'Save',
+      'label'=>$model->isNewRecord ? 'Guardar' : 'Save',
     )); ?>
 </div>
 

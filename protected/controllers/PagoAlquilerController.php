@@ -27,19 +27,19 @@ public function accessRules()
 {
 return array(
 array('allow',  // allow all users to perform 'index' and 'view' actions
-'actions'=>array('index','view','newalquiler','Selecttres','Selectdos','registrarpago','buscarclientes'),
+'actions'=>array('index','view','newalquiler','Selecttres','Selectdos','registrarpago','buscarclientes','detallesdepago','generarcontrato','generarrecibo'),
 'users'=>array('*'),
 ),
 array('allow', // allow authenticated user to perform 'create' and 'update' actions
-'actions'=>array('create','update','newalquiler','Selecttres','Selectdos','registrarpago','buscarclientes'),
+'actions'=>array('create','update','newalquiler','Selecttres','Selectdos','registrarpago','buscarclientes','detallesdepago','generarcontrato','generarrecibo'),
 'users'=>array('@'),
 ),
 array('allow', // allow admin user to perform 'admin' and 'delete' actions
 'actions'=>array('admin','delete'),
-'users'=>array('admin'),
+	'users'=>array('admin'),
 ),
 array('deny',  // deny all users
-'users'=>array('*'),
+	'users'=>array('*'),
 ),
 );
 }
@@ -55,6 +55,93 @@ $this->render('view',array(
 ));
 }
 
+public function actionGenerarContrato($id)
+{
+
+    $contrato=Contrato::model()->find('id_cliente=:id_cliente',array(':id_cliente'=>$id));
+    $apartamento=Apartamento::model()->find('id_cliente=:id_cliente',array(':id_cliente'=>$id));
+    $cliente=Cliente::model()->find('id_cliente=:id_cliente',array(':id_cliente'=>$id));
+    $pagoscliente=PagoAlquiler::model()->findAll('id_cliente=:id_cliente',array(':id_cliente'=>$id));
+
+    $generarcontrato=PlantillaContrato::model()->find(
+    	      'id_plantilla_contrato=:id_plantilla_contrato',
+    	       array(':id_plantilla_contrato'=>1));
+        $cadena=$generarcontrato->descripcion;
+        
+        //Para la variable 1         		
+		$buscar = 'VARIABLE1';
+		$reemplazar = $cliente->nom_cliente.' '. $cliente->ape_cliente;
+		$resultado=str_replace($buscar, $reemplazar, $cadena);
+   
+        //Para la variable 2		
+		$sexo = 'VARIABLE2';
+		if($cliente->sexo==2){
+                $reemplazar2 = "varon";
+		}else{
+                $reemplazar2 = "mujer";
+		}
+		$resultado=str_replace($sexo, $reemplazar2, $resultado);
+		//Para la variable 3		
+		$estadocivil = 'VARIABLE3';
+		if(($cliente->estado_civil==1) AND ($cliente->sexo==1)){
+                $reemplazar3 ="Soltera";
+		}elseif (($cliente->estado_civil==1) AND ($cliente->sexo==2)) {
+			    $reemplazar3 = "Soltero";
+		}elseif (($cliente->estado_civil==2) AND ($cliente->sexo==1)) {
+			    $reemplazar3 = "casada";
+		}else{
+		        $reemplazar3 = "casado";		
+		}
+		$resultado=str_replace($estadocivil, $reemplazar3, $resultado);
+	  
+        //Para la variable 4		
+		$num_identificacion = 'VARIABLE4';
+	    $reemplazar4 = $cliente->num_identificacion;
+		$resultado=str_replace($num_identificacion, $reemplazar4, $resultado);
+	
+	     //Para la VARIABLE5 	
+		$nom_apartamento = 'VARIABLE5';
+	    $reemplazar4 = $apartamento->nom_apartamento;
+		$resultado=str_replace($nom_apartamento, $reemplazar4, $resultado);
+
+      Yii::app()->request->sendFile('Contrato.docx',
+                                $this->renderPartial('generarcontrato',array(
+                                    'resultado'=>$resultado,
+                                ),true)
+                
+       );
+  
+}
+
+public function actionGenerarrecibo($id)
+{
+
+    $contrato=Contrato::model()->find('id_cliente=:id_cliente',array(':id_cliente'=>$id));
+    $apartamento=Apartamento::model()->find('id_cliente=:id_cliente',array(':id_cliente'=>$id));
+    $cliente=Cliente::model()->find('id_cliente=:id_cliente',array(':id_cliente'=>$id));
+    $pagoscliente=PagoAlquiler::model()->findAll('id_cliente=:id_cliente',array(':id_cliente'=>$id));
+
+    $generarcontrato=PlantillaRecibo::model()->find(
+    	      'id_plantilla_recibo=:id_plantilla_recibo',
+    	       array(':id_plantilla_recibo'=>1));
+    
+		$cadena=$generarcontrato->descripcion;
+		$buscar = 'VARIABLE1';
+		$reemplazar = $cliente->nom_cliente.' '. $cliente->ape_cliente;
+		$resultado=str_replace($buscar, $reemplazar, $cadena);
+   
+//var_dump($cadena);die;
+
+
+
+      Yii::app()->request->sendFile('Recibo.docx',
+                                $this->renderPartial('generarrecibo',array(
+                                    'resultado'=>$resultado,
+                                ),true)
+                
+       );
+  
+}
 /**
 * Creates a new model.
 * If creation is successful, the browser will be redirected to the 'view' page.
@@ -138,14 +225,14 @@ $this->render('index',array(
 */
 public function actionAdmin()
 {
-$model=new PagoAlquiler('search');
-$model->unsetAttributes();  // clear any default values
-if(isset($_GET['PagoAlquiler']))
-$model->attributes=$_GET['PagoAlquiler'];
+	$model=new PagoAlquiler('search');
+	$model->unsetAttributes();  // clear any default values
+	if(isset($_GET['PagoAlquiler']))
+			$model->attributes=$_GET['PagoAlquiler'];
 
-$this->render('admin',array(
-'model'=>$model,
-));
+	$this->render('admin',array(
+			'model'=>$model,
+	));
 }
 
 /**
@@ -155,10 +242,10 @@ $this->render('admin',array(
 */
 public function loadModel($id)
 {
-$model=PagoAlquiler::model()->findByPk($id);
-if($model===null)
-throw new CHttpException(404,'The requested page does not exist.');
-return $model;
+	$model=PagoAlquiler::model()->findByPk($id);
+	if($model===null)
+			throw new CHttpException(404,'The requested page does not exist.');
+	return $model;
 }
 
 /**
@@ -167,11 +254,11 @@ return $model;
 */
 protected function performAjaxValidation($model)
 {
-if(isset($_POST['ajax']) && $_POST['ajax']==='pago-alquiler-form')
-{
-echo CActiveForm::validate($model);
-Yii::app()->end();
-}
+	if(isset($_POST['ajax']) && $_POST['ajax']==='pago-alquiler-form')
+	{
+		echo CActiveForm::validate($model);
+		Yii::app()->end();
+	}
 }
 
 public function actionNewAlquiler()
@@ -189,7 +276,7 @@ public function actionNewAlquiler()
 	$model->observacion='Registro Contrato';
 	//1.2.2 ACTUALIZAMOS EL TRAMITE PASO
 	$apartamento = Apartamento::model()->updateByPk($model->id_apartamento,array(  
-	                          'activo'                 =>1,
+	                          'activo'                    =>1,
 	                          'id_cliente'                =>$model->id_cliente	                               
 	                                            )); 
 
@@ -216,15 +303,20 @@ public function actionRegistrarPago($id)
     $contrato=Contrato::model()->find('id_cliente=:id_cliente',array(':id_cliente'=>$id));
     $apartamento=Apartamento::model()->find('id_cliente=:id_cliente',array(':id_cliente'=>$id));
     $cliente=Cliente::model()->find('id_cliente=:id_cliente',array(':id_cliente'=>$id));
+    $pagoscliente=PagoAlquiler::model()->findAll('id_cliente=:id_cliente',array(':id_cliente'=>$id));
 
-    //var_dump($cliente);die;
+
 	// Uncomment the following line if AJAX validation is needed
 	// $this->performAjaxValidation($model);
 
 	if(isset($_POST['PagoAlquiler']))
 	{
+		 //   var_dump($_POST['PagoAlquiler']);die;
 		$model->attributes=$_POST['PagoAlquiler'];
-		$saldo_pendiente = $contrato->monto_alquiler - $model->monto;
+
+		$saldo_pendiente = ($contrato->monto_alquiler - $model->monto);
+
+		$model->saldo_pendiente = $saldo_pendiente;
 		$model->monto_alquiler = $contrato->monto_alquiler;
 		$model->fecha_ultimo_pago =	$fecha_ultimo_pago;
 		$model->id_proyecto = $apartamento->id_proyecto;
@@ -232,7 +324,11 @@ public function actionRegistrarPago($id)
 		$model->id_apartamento = $apartamento->id_apartamento;
 		$model->id_cliente = $id;
 		$model->id_contrato = $contrato->id_contrato;
-	
+	    if($model->pago1=='' or $model->pago2=='' or $model->pago3==''){
+	    	$model->pago1=null;
+	    	$model->pago2=null;
+	    	$model->pago3=null;
+	    }
 	if($model->save())
 		$this->redirect(array('view','id'=>$model->id_pago_alquiler));
 	}
@@ -240,20 +336,21 @@ public function actionRegistrarPago($id)
 	$this->render('registrarpago',array(
 			'model'=>$model,
 			'contrato'=>$contrato,
-			'cliente'=>$cliente
+			'cliente'=>$cliente,
+			'pagoscliente'=>$pagoscliente
 	));
 }
 
 public function actionBuscarClientes()
 {
-	$model=new Cliente;
+	$model=new Contrato;
 	// Uncomment the following line if AJAX validation is needed
 	// $this->performAjaxValidation($model);
-	$model=new Cliente('search');
+	$model=new Contrato('search');
 	$model->unsetAttributes();  // clear any default values
 
-	if(isset($_GET['Cliente']))
-			$model->attributes=$_GET['Cliente'];
+	if(isset($_GET['Contrato']))
+			$model->attributes=$_GET['Contrato'];
 
 	$this->render('buscarclientes',array(
 			'model'=>$model,
@@ -290,4 +387,17 @@ public function actionSelectdos(){
             }
             
         } 
+        public function actiondetallesdePago()
+        {
+			$model=new PagoAlquiler('search');
+			$model->unsetAttributes();  // clear any default values
+			if(isset($_GET['PagoAlquiler']))
+				$model->attributes=$_GET['PagoAlquiler'];
+
+			$this->render('detallesdepago',array(
+				'model'=>$model,
+			));
+            
+        } 
+
 }

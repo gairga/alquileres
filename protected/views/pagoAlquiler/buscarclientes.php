@@ -31,11 +31,12 @@ return false;
 'dataProvider'=>$model->search(),
 'filter'=>$model,
 'columns'=>array(
-		'id_cliente',
-		'nom_cliente',
-		'ape_cliente',
-		'num_identificacion',
-		'correo',
+		'idCliente.id_cliente',
+		'idCliente.nom_cliente',
+		'idCliente.ape_cliente',
+		'idCliente.num_identificacion',
+		'idCliente.correo',
+        'id_contrato',
 
      array(
             'class'=>'CButtonColumn',

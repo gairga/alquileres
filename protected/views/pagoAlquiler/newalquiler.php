@@ -5,8 +5,8 @@ $form=$this->beginWidget('booster.widgets.TbActiveForm',array(
 ));
 
  $this->menu=array(
-  array('label'=>'List PagoAlquiler','url'=>array('index')),
-  array('label'=>'Manage PagoAlquiler','url'=>array('admin')),
+  array('label'=>'Listar Alquileres','url'=>array('index')),
+  array('label'=>'Administrar Alquileres','url'=>array('admin')),
  ); 
  $nombre=null;
 ?>
@@ -36,26 +36,30 @@ $form=$this->beginWidget('booster.widgets.TbActiveForm',array(
 $(function(){
 
          $('select#PagoAlquiler_id_cliente').change(function () { 
-
-      //  $('select#Apartamento_id_cliente').blur(function() {
-         //   var id_cliente=(document.getElementById('Apartamento_id_cliente').value);
- //alert("ff");
           var x = $('#PagoAlquiler_id_cliente').val();
-                   alert(x);
-         
-            //   alert(x);
+                   //alert(x);
               $.ajax({
                           url: "<?php echo Yii::app()->createUrl('cliente/existecliente')?>",
                           data: {"id_cliente":x},
-                          success: function(data){
-       
-                                  $("#nombre").val(data);
+                          success: function(data){       
+                            // var json_x = data;
+                      //       var name = data.Cliente[1].nom_cliente;
+                 //     var name = json_x.Cliente[1];
+    //alert(data);
+    /*$('#result').html(json_x['firstName2']);
+    $('#result2').html(json_x['b']); */
+                                 // $("#nom_cliente").val(data['nom_cliente']);
+                                    // ["nom_cliente"]=>      string(4) "Gaby"
                                  // $("#apellido").val(data);
+
+                                 for (var i=0;i<data.length;++i)
+         {
+         $('#nom_cliente').append('<div class="name">data[i].name</>');
+         }
                          }
               });
          });
-    
-    
+       
 });
 </script>
 
@@ -183,27 +187,24 @@ $(function(){
                       'placeholder' => "NOMBRE DEL INQUILINO",
                         'allowClear'=>true,
                         'minimumInputLength'=>2,
+                         'width' => '40%',
                       ),
-                      'htmlOptions'=>array(
-                        'style'=>'width:90px',
-                      ),
+                     /* 'htmlOptions'=>array(
+                        'style'=>'height:10px',
+                      ),*/
                     ));
         ?>
   </div> 
+   </div> 
 <br/><br/>
 
-<div class="form-group">
-    <label for="nombre">Nombre Cliente:</label>
-    <input type="nombre" class="form-control" id="nombre">
-  </div>
 
- </div>
 
 <button type="button" class="btn btn-warning">DATOS CONTRATO</button>
 
   <?php echo $form->datePickerGroup($contrato,'inicio_contrato',array('widgetOptions'=>array('options'=>array(
                                  'format' => 'yyyy-mm-dd'
-                    ),'htmlOptions'=>array('class'=>'span5')), 'prepend'=>'<i class="glyphicon glyphicon-calendar"></i>', 'append'=>'Click on Month/Year to select a different Month/Year.')); ?>
+                    ),'htmlOptions'=>array('class'=>'span5')), 'prepend'=>'<i class="glyphicon glyphicon-calendar"></i>', 'append'=>'Click para seleccionar un Mes/Año.')); ?>
 
   <?php echo $form->datePickerGroup($contrato,'fin_contrato',array(
                     'widgetOptions'=>array(
@@ -211,16 +212,16 @@ $(function(){
                                  'format' => 'yyyy-mm-dd'
                     ),
                     'htmlOptions'=>array('class'=>'span5')), 
-                     'prepend'=>'<i class="glyphicon glyphicon-calendar"></i>', 'append'=>'Click on Month/Year to select a different Month/Year.')); ?>
+                     'prepend'=>'<i class="glyphicon glyphicon-calendar"></i>', 'append'=>'Click para seleccionar un Mes/Año.')); ?>
 
     
-       <?php echo $form->labelEx($contrato,'id_tipo_pago'); ?>
-    <?php echo $form->dropDownList($contrato, 'id_tipo_pago', CHtml::listData(TipoPago::model()->findAll(array('order'=>'nom_tipo_pago')), 'id_tipo_pago','nom_tipo_pago'),
-          array(
+       <?php //echo $form->labelEx($contrato,'id_tipo_pago'); ?>
+    <?php //echo $form->dropDownList($contrato, 'id_tipo_pago', CHtml::listData(TipoPago::model()->findAll(array('order'=>'nom_tipo_pago')), 'id_tipo_pago','nom_tipo_pago'),
+       /*   array(
   'class'=>'form-control',
-          'empty'=>'Seleccionar..')); ?>
+          'empty'=>'Seleccionar..')); */?>
 
-    <?php echo $form->error($contrato,'id_tipo_pago'); ?>
+    <?php //echo $form->error($contrato,'id_tipo_pago'); ?>
 
   <?php echo $form->textFieldGroup($contrato,'monto_alquiler',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>
 
@@ -232,7 +233,7 @@ $(function(){
   <?php $this->widget('booster.widgets.TbButton', array(
       'buttonType'=>'submit',
       'context'=>'primary',
-      'label'=>$model->isNewRecord ? 'Create' : 'Save',
+      'label'=>$model->isNewRecord ? 'Guardar' : 'Save',
     )); ?>
 </div>
 

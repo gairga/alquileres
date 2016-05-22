@@ -8,8 +8,8 @@ array('label'=>'Create PagoAlquiler','url'=>array('create')),
 array('label'=>'Manage PagoAlquiler','url'=>array('admin')),
 );
 ?>
+<button type="button" class="btn btn-warning">LISTA DE ALQUILERES</button>
 
-<h1>Pago Alquilers</h1>
 
 <?php $this->widget('booster.widgets.TbListView',array(
 'dataProvider'=>$dataProvider,

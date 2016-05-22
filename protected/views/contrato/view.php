@@ -7,6 +7,7 @@ $this->breadcrumbs=array(
 $this->menu=array(
 array('label'=>'List Contrato','url'=>array('index')),
 array('label'=>'Create Contrato','url'=>array('create')),
+
 array('label'=>'Update Contrato','url'=>array('update','id'=>$model->id_contrato)),
 array('label'=>'Delete Contrato','url'=>'#','linkOptions'=>array('submit'=>array('delete','id'=>$model->id_contrato),'confirm'=>'Are you sure you want to delete this item?')),
 array('label'=>'Manage Contrato','url'=>array('admin')),

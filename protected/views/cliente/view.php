@@ -13,7 +13,8 @@ array('label'=>'Manage Cliente','url'=>array('admin')),
 );
 ?>
 
-<h1>View Cliente #<?php echo $model->id_cliente; ?></h1>
+<button type="button" class="btn btn-warning">CLIENTE #<?php echo $model->id_cliente; ?></button>
+
 
 <?php $this->widget('booster.widgets.TbDetailView',array(
 'data'=>$model,
@@ -23,5 +24,18 @@ array('label'=>'Manage Cliente','url'=>array('admin')),
 		'ape_cliente',
 		'num_identificacion',
 		'correo',
+		'direccion',
+		'telefono',
+		'ocupacion',
+		'celular',
+		'sexo',
+		'estado_civil',
+		'lugar_trabajo',
+		'direccion_de_trabajo',
+		'telef_trabajo',
+		'pais',
+		'nacionalidad',
+		'referencia_personal',
+		'telef_referencia',
 ),
 )); ?>

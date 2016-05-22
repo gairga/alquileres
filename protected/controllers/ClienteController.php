@@ -26,22 +26,22 @@ return array(
 public function accessRules()
 {
 return array(
-array('allow',  // allow all users to perform 'index' and 'view' actions
-'actions'=>array('index','view','existecliente'),
-'users'=>array('*'),
-),
-array('allow', // allow authenticated user to perform 'create' and 'update' actions
-'actions'=>array('create','update','existecliente'),
-'users'=>array('@'),
-),
-array('allow', // allow admin user to perform 'admin' and 'delete' actions
-'actions'=>array('admin','delete'),
-'users'=>array('admin'),
-),
-array('deny',  // deny all users
-'users'=>array('*'),
-),
-);
+  array('allow',  // allow all users to perform 'index' and 'view' actions
+      'actions'=>array('index','view','existecliente','generarcontrato'),
+      'users'=>array('*'),
+  ),
+  array('allow', // allow authenticated user to perform 'create' and 'update' actions
+      'actions'=>array('create','update','existecliente'),
+      'users'=>array('@'),
+  ),
+  array('allow', // allow admin user to perform 'admin' and 'delete' actions
+      'actions'=>array('admin','delete'),
+      'users'=>array('admin'),
+  ),
+  array('deny',  // deny all users
+      'users'=>array('*'),
+  ),
+  );
 }
 
 /**
@@ -50,9 +50,9 @@ array('deny',  // deny all users
 */
 public function actionView($id)
 {
-$this->render('view',array(
-'model'=>$this->loadModel($id),
-));
+  $this->render('view',array(
+      'model'=>$this->loadModel($id),
+  ));
 }
 
 /**
@@ -66,16 +66,16 @@ $model=new Cliente;
 // Uncomment the following line if AJAX validation is needed
 // $this->performAjaxValidation($model);
 
-if(isset($_POST['Cliente']))
-{
-$model->attributes=$_POST['Cliente'];
-if($model->save())
-$this->redirect(array('view','id'=>$model->id_cliente));
-}
+    if(isset($_POST['Cliente']))
+    {
+    $model->attributes=$_POST['Cliente'];
+    if($model->save())
+        $this->redirect(array('view','id'=>$model->id_cliente));
+    }
 
-$this->render('create',array(
-'model'=>$model,
-));
+    $this->render('create',array(
+        'model'=>$model,
+    ));
 }
 
 /**
@@ -138,16 +138,27 @@ $this->render('index',array(
 */
 public function actionAdmin()
 {
-$model=new Cliente('search');
-$model->unsetAttributes();  // clear any default values
-if(isset($_GET['Cliente']))
-$model->attributes=$_GET['Cliente'];
+    $model=new Cliente('search');
+    $model->unsetAttributes();  // clear any default values
+    if(isset($_GET['Cliente']))
+        $model->attributes=$_GET['Cliente'];
 
-$this->render('admin',array(
-'model'=>$model,
-));
+    $this->render('admin',array(
+        'model'=>$model,
+    ));
 }
 
+public function actionGenerarContrato()
+{
+    $model=new Cliente('search');
+    $model->unsetAttributes();  // clear any default values
+    if(isset($_GET['Cliente']))
+      $model->attributes=$_GET['Cliente'];
+
+      $this->render('admin',array(
+        'model'=>$model,
+    ));
+}
 /**
 * Returns the data model based on the primary key given in the GET variable.
 * If the data model is not found, an HTTP exception will be raised.
@@ -167,20 +178,21 @@ return $model;
 */
 protected function performAjaxValidation($model)
 {
-if(isset($_POST['ajax']) && $_POST['ajax']==='cliente-form')
-{
-echo CActiveForm::validate($model);
-Yii::app()->end();
+  if(isset($_POST['ajax']) && $_POST['ajax']==='cliente-form')
+  {
+    echo CActiveForm::validate($model);
+    Yii::app()->end();
+  }
 }
-}
+
 
 public function actionExisteCliente() {
 	    $cekprop=$_GET['id_cliente'];
 	//$cekprop=3;
                 $sql=Cliente::model()->findAllByAttributes(array('id_cliente'=>$cekprop));
-             /*   $sql=Cliente::model()->findAll('id_cliente=:id_cliente',
+              /* $sql=Cliente::model()->findAll('id_cliente=:id_cliente',
                                array(':id_cliente'=>$cekprop)); */
-              //  var_dump($sql);die;
+                //var_dump($sql);die;
                 foreach ($sql as $i)
                 {
                         echo $i->nom_cliente;
