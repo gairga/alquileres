@@ -274,6 +274,7 @@ public function actionNewAlquiler()
 	$model->attributes=$_POST['PagoAlquiler'];
 	$contrato->id_cliente=$model->id_cliente;
 	$model->observacion='Registro Contrato';
+	$contrato->cuota_pago=$contrato->monto_alquiler/12;
 	//1.2.2 ACTUALIZAMOS EL TRAMITE PASO
 	$apartamento = Apartamento::model()->updateByPk($model->id_apartamento,array(  
 	                          'activo'                    =>1,

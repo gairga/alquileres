@@ -84,17 +84,17 @@ class PagoAlquiler extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id_pago_alquiler' => 'Id Pago Alquiler',
+			'id_pago_alquiler' => 'Pago Alquiler',
 			'id_contrato' => 'Id Contrato',
 			'fecha_pago' => 'Fecha Pago',
 			'monto_pagado' => 'Monto Pagado',
 			'saldo_pendiente' => 'Saldo Pendiente',
 			'fecha_ultimo_pago' => 'Fecha Ultimo Pago',
 			'monto_alquiler' => 'Monto Alquiler',
-			'id_proyecto' => 'Id Proyecto',
-			'id_edificio' => 'Id Edificio',
-			'id_apartamento' => 'Id Apartamento',
-			'id_cliente' => 'Id Cliente',
+			'id_proyecto' => 'Proyecto',
+			'id_edificio' => 'Edificio',
+			'id_apartamento' => 'Apartamento',
+			'id_cliente' => 'Cod Cliente',
 			'num_recibo' => 'Num Recibo',
 			'concepto' => 'Concepto',
 			'monto' => 'Monto',

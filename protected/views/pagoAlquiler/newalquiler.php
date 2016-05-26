@@ -222,12 +222,15 @@ $(function(){
           'empty'=>'Seleccionar..')); */?>
 
     <?php //echo $form->error($contrato,'id_tipo_pago'); ?>
-
+<?php $contrato->fecha_corte_pago=15; ?>
   <?php echo $form->textFieldGroup($contrato,'monto_alquiler',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>
 
-  <?php echo $form->textFieldGroup($contrato,'fecha_corte_pago',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>
+  <?php //echo $form->textFieldGroup($contrato,'fecha_corte_pago',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>
+   <?php echo $form->datePickerGroup($contrato,'fecha_corte_pago',array('widgetOptions'=>array('options'=>array(
+                                 'format' => 'dd'
+                    ),'htmlOptions'=>array('class'=>'span5')), 'prepend'=>'<i class="glyphicon glyphicon-calendar"></i>', 'append'=>'Click para seleccionar un Mes/Año.')); ?>
 
-    <?php echo $form->textFieldGroup($contrato,'cuota_pago',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>
+    <?php /*echo $form->textFieldGroup($contrato,'cuota_pago',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5'))));*/ ?>
     
 <div class="form-actions">
   <?php $this->widget('booster.widgets.TbButton', array(
