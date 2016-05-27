@@ -32,6 +32,7 @@ return false;
 'filter'=>$contrato,
 'columns'=>array(
 		'idCliente.id_cliente',
+
 		'idCliente.nom_cliente',
 		'idCliente.ape_cliente',
 		'idCliente.num_identificacion',

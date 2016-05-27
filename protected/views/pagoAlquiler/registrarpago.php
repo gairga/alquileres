@@ -38,7 +38,7 @@ $(function(){
          // $("#PagoAlquiler").css("display", "block");
          $('select#PagoAlquiler_id_tipo_pago').change(function () { 
           var x = $('#PagoAlquiler_id_tipo_pago').val();
-              alert(x);
+            //  alert(x);
               if(x==1){
                 $("#efectivo").css("display", "none");
                 $("#debito").css("display", "none");
@@ -86,7 +86,7 @@ $(function(){
         N° de Contrato: <?php echo $contrato->id_contrato; ?> <br/>
         Cuota de Pago: <?php echo $contrato->cuota_pago; ?> <br/>
         Feha de Corte de Pago:  <?php echo $contrato->fecha_corte_pago; ?> <br/>
-
+<?php $contrato->monto_alquiler; ?> 
       </div>
     </div>
            <div class='panel panel-primary'>
@@ -94,7 +94,7 @@ $(function(){
             <div class='panel-body'>
                <table border='1'>
                 <tr>               
-                 <th>Mes</th>
+                 <th>Fecha de Pago</th>
                  <th>Monto Pagado</th>
                  <th>Saldo Penditente</th>
                 </tr> 
@@ -122,9 +122,10 @@ $(function(){
                     ),'htmlOptions'=>array('class'=>'span5')), 'prepend'=>'<i class="glyphicon glyphicon-calendar"></i>', 'append'=>'Seleccione un mes y un año')); ?>
       </div>
      
-      <div class="form-group">
-      <?php echo $form->textFieldGroup($model,'num_recibo',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>
-      </div>
+      <?php $model->num_recibo=0; ?>
+      <?php echo $model->monto=$contrato->monto_alquiler;?>
+      <?php //echo $form->textFieldGroup($model,'num_recibo',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>
+      
 
       <div class="form-group">
        <?php echo $form->labelEx($model,'id_meses'); ?>
@@ -174,7 +175,13 @@ $(function(){
       </div>
 
       <div class="form-group">
-      <?php echo $form->textFieldGroup($model,'concepto',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>
+    <?php echo $form->labelEx($model,'id_concepto'); ?>
+    <?php echo $form->dropDownList($model, 'id_concepto', CHtml::listData(Concepto::model()->findAll(array('order'=>'id_concepto')), 'id_concepto','descripcion'),
+          array(
+  'class'=>'form-control',
+          'empty'=>'Seleccionar..')); ?>
+
+    <?php echo $form->error($model,'id_meses'); ?>
       </div>
 
       <div class="form-group">
