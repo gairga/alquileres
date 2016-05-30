@@ -25,6 +25,8 @@
  * @property string $pago3
  * @property integer $id_tipo_pago
  * @property integer $id_concepto
+ * @property string $nom_cliente
+ * @property string $ape_cliente
  *
  * The followings are the available model relations:
  * @property Proyecto $idProyecto
@@ -108,6 +110,8 @@ class PagoAlquiler extends CActiveRecord
 			'pago3' => 'Debito/Credito',
 			'id_tipo_pago' => 'Tipos de Forma de Pago',
 			'id_concepto' => 'Concepto',
+			'nom_cliente' => 'Nom Cliente',
+			'ape_cliente' => 'Ape Cliente',
 		);
 	}
 
@@ -150,6 +154,9 @@ class PagoAlquiler extends CActiveRecord
 		$criteria->compare('pago3',$this->pago3,true);
 		$criteria->compare('id_tipo_pago',$this->id_tipo_pago);
 		$criteria->compare('id_concepto',$this->id_concepto);
+		$criteria->compare('nom_cliente',$this->nom_cliente,true);
+		$criteria->compare('ape_cliente',$this->ape_cliente,true);
+
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,

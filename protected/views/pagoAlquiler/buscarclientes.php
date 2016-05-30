@@ -32,13 +32,21 @@ return false;
 'filter'=>$model,
 'columns'=>array(
 		'idCliente.id_cliente',
-		'idCliente.nom_cliente',
-		'idCliente.ape_cliente',
+        'nom_cliente',
+        'ape_cliente',
+		/*'idCliente.nom_cliente',
+		'idCliente.ape_cliente',*/
 		'idCliente.num_identificacion',
 		'idCliente.correo',
         'id_contrato',
-
-     array(
+        array(
+                    'name'=>'id_proyecto',
+                    'header'=>'Proyecto',
+                    'value'=> 'CHtml::encode($data->idProyecto["nom_proyecto"])',
+                    'filter'=>CHtml::listData(Proyecto::model()->findAll(), 'id_proyecto', 'nom_proyecto'),
+               ), 
+        
+        array(
             'class'=>'CButtonColumn',
             'template'=>'{pago}{update}',
             'buttons'=>array

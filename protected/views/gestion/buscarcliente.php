@@ -33,8 +33,8 @@ return false;
 'columns'=>array(
 		'idCliente.id_cliente',
 
-		'idCliente.nom_cliente',
-		'idCliente.ape_cliente',
+		'nom_cliente',
+		'ape_cliente',
 		'idCliente.num_identificacion',
 		'idCliente.correo',
         'id_contrato',
