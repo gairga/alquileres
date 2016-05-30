@@ -35,6 +35,10 @@ $(function(){
          $("#efectivo").css("display", "none");
          $("#debito").css("display", "none");
          $("#credito").css("display", "none");
+               $("#transferencia").css("display", "none");
+                  $("#banco_monto").css("display", "none");
+                $("#nom_banco").css("display", "none");
+                $("#num_banco").css("display", "none");
          // $("#PagoAlquiler").css("display", "block");
          $('select#PagoAlquiler_id_tipo_pago').change(function () { 
           var x = $('#PagoAlquiler_id_tipo_pago').val();
@@ -44,48 +48,79 @@ $(function(){
                 $("#debito").css("display", "none");
                 $("#credito").css("display", "none");
                 $("#transferencia").css("display", "none");
+                  $("#banco_monto").css("display", "none");
+                $("#nom_banco").css("display", "none");
+                $("#num_banco").css("display", "none");
               }
               if(x==2){
                 $("#efectivo").css("display", "none");
                 $("#debito").css("display", "block");
                 $("#credito").css("display", "none");
-                 $("#transferencia").css("display", "none");
+                $("#transferencia").css("display", "none");
+                $("#banco_monto").css("display", "none");
+                $("#nom_banco").css("display", "none");
+                $("#num_banco").css("display", "none");                
+
               }
               if(x==3){
                 $("#efectivo").css("display", "none");
                 $("#credito").css("display", "block");
                 $("#debito").css("display", "none");
                 $("#transferencia").css("display", "none");
+                $("#banco_monto").css("display", "none");
+                $("#nom_banco").css("display", "none");
+                $("#num_banco").css("display", "none");                
               }
               if(x==4){
                 $("#efectivo").css("display", "none");
                 $("#credito").css("display", "none");
                 $("#debito").css("display", "none");
                 $("#transferencia").css("display", "block");
+                $("#banco_monto").css("display", "none");
+                $("#nom_banco").css("display", "none");
+                $("#num_banco").css("display", "none");                
               }                
               if(x==5){
                 $("#efectivo").css("display", "block");
                 $("#debito").css("display", "block");
                 $("#credito").css("display", "none");
                 $("#transferencia").css("display", "none");
+                $("#banco_monto").css("display", "none");
+                $("#nom_banco").css("display", "none");
+                $("#num_banco").css("display", "none");                
               }
               if(x==6){
                 $("#efectivo").css("display", "block");
                 $("#credito").css("display", "block");
                 $("#debito").css("display", "none");
                 $("#transferencia").css("display", "none");
+                $("#banco_monto").css("display", "none");
+                $("#nom_banco").css("display", "none");
+                $("#num_banco").css("display", "none");                
               }
               if(x==7){
                 $("#efectivo").css("display", "block");
                 $("#debito").css("display", "block");
                 $("#credito").css("display", "block");
                 $("#transferencia").css("display", "none");
+                $("#banco_monto").css("display", "none");
+                $("#nom_banco").css("display", "none");
+                $("#num_banco").css("display", "none");                
+              }
+              if(x==9){
+                $("#efectivo").css("display", "none");
+                $("#debito").css("display", "none");
+                $("#credito").css("display", "none");
+                $("#transferencia").css("display", "none");
+                $("#banco_monto").css("display", "block");
+                $("#nom_banco").css("display", "block");
+                $("#num_banco").css("display", "block");
               }
          });
        
 });
 </script>
-
+<?php $total=0?>
 <?php echo $form->errorSummary($model); ?>
  <div class="panel panel-primary">
       <div class="panel-heading">INFORMACIÓN GENERAL</div>
@@ -113,12 +148,14 @@ $(function(){
                 </tr> 
 
     <?php foreach ($pagoscliente as $row) {
+              $total+=$row['monto'];
               echo $message = "<tr>
                     <td>".$row['fecha_pago']."</td>                
                     <td>".$row['num_recibo']."</td>
                     <td>".$row['monto']."</td> 
                     <td>".$row['saldo_pendiente']."</td> 
                     </tr>
+
                                            
            ";
         }
@@ -126,7 +163,7 @@ $(function(){
         ?>  
                   <tr>
                        <td>Total</td>   
-                       <td colspan='3'>886</td>   
+                       <td colspan='3'><?php echo $total; ?></td>   
                   </tr>    
          </table> 
      </div>
@@ -189,6 +226,21 @@ $(function(){
         <div class="form-group">
          <?php echo $form->textFieldGroup($model,'transferencia',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>
         </div>
+
+    <div id="banco">
+        <div class="form-group">
+         <?php echo $form->textFieldGroup($model,'banco_monto',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>
+        </div>
+
+        <div class="form-group">
+         <?php echo $form->textFieldGroup($model,'nom_banco',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>
+        </div>
+
+        <div class="form-group">
+         <?php echo $form->textFieldGroup($model,'num_banco',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>
+        </div>
+     </div> 
+
      </div>      
        <?php $model->monto_pagado=$contrato->cuota_pago;?>
       <div class="form-group">

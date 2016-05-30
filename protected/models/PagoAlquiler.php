@@ -28,6 +28,9 @@
  * @property string $nom_cliente
  * @property string $ape_cliente
  * @property string $transferencia
+ * @property string $banco_monto
+ * @property string $nom_banco
+ * @property string $num_banco
  *
  * The followings are the available model relations:
  * @property Proyecto $idProyecto
@@ -114,6 +117,9 @@ class PagoAlquiler extends CActiveRecord
 			'nom_cliente' => 'Nom Cliente',
 			'ape_cliente' => 'Ape Cliente',
 			'transferencia' => 'Transferencia',
+			'banco_monto' => 'Monto del Banco',
+			'nom_banco' => 'Nombre Banco',
+			'num_banco' => 'N de Comprobante',
 		);
 	}
 

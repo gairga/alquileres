@@ -61,17 +61,25 @@ public function actionGenerarContrato($id)
     $contrato=Contrato::model()->find('id_cliente=:id_cliente',array(':id_cliente'=>$id));
     $apartamento=Apartamento::model()->find('id_cliente=:id_cliente',array(':id_cliente'=>$id));
     $cliente=Cliente::model()->find('id_cliente=:id_cliente',array(':id_cliente'=>$id));
-    $pagoscliente=PagoAlquiler::model()->findAll('id_cliente=:id_cliente',array(':id_cliente'=>$id));
-
-    $generarcontrato=PlantillaContrato::model()->find(
+    $pagoscliente=PagoAlquiler::model()->find('id_cliente=:id_cliente',array(':id_cliente'=>$id));
+    
+    $proyecto=Proyecto::model()->find('id_proyecto=:id_proyecto',array(':id_proyecto'=>$pagoscliente->id_proyecto));
+//var_dump($proyecto->nom_proyecto);die;
+        $generarcontrato=PlantillaContrato::model()->find(
     	      'id_plantilla_contrato=:id_plantilla_contrato',
     	       array(':id_plantilla_contrato'=>1));
-        $cadena=$generarcontrato->descripcion;
+        $resultado=$generarcontrato->descripcion;
         
+
+        //Proyecto		     	
+		$b_nom_proyecto = 'PROYECTOP';
+	    $r_nom_proyecto = $proyecto->nom_proyecto;
+		$resultado=str_replace($b_nom_proyecto, $r_nom_proyecto, $resultado);
+
         //Para la variable 1         		
 		$buscar = 'VARIABLE1';
 		$reemplazar = $cliente->nom_cliente.' '. $cliente->ape_cliente;
-		$resultado=str_replace($buscar, $reemplazar, $cadena);
+		$resultado=str_replace($buscar, $reemplazar, $resultado);
    
         //Para la variable 2		
 		$sexo = 'VARIABLE2';
@@ -81,6 +89,7 @@ public function actionGenerarContrato($id)
                 $reemplazar2 = "mujer";
 		}
 		$resultado=str_replace($sexo, $reemplazar2, $resultado);
+
 		//Para la variable 3		
 		$estadocivil = 'VARIABLE3';
 		if(($cliente->estado_civil==1) AND ($cliente->sexo==1)){
@@ -100,9 +109,24 @@ public function actionGenerarContrato($id)
 		$resultado=str_replace($num_identificacion, $reemplazar4, $resultado);
 	
 	     //Para la VARIABLE5 	
-		$nom_apartamento = 'VARIABLE5';
+	$nom_apartamento = 'VARIABLE5';
 	    $reemplazar4 = $apartamento->nom_apartamento;
 		$resultado=str_replace($nom_apartamento, $reemplazar4, $resultado);
+
+		//Para la VARIABLE7 	
+		$mts_apartamento = 'VARIABLE7';
+	    $reemplazarmts = $apartamento->metraje_apartamento;
+		$resultado=str_replace($mts_apartamento, $reemplazarmts, $resultado);
+
+		//Para la VARIABLE8 	
+		$num_estacionamiento = 'VARIABLE8';
+	    $r_num_estacionamiento = $apartamento->num_estacionamiento;
+		$resultado=str_replace($num_estacionamiento, $r_num_estacionamiento, $resultado);
+
+		//Para la MONTOL 	
+		$monto_alquiler = 'MONTOL';
+	    $r_monto_alquiler= $contrato->monto_alquiler;
+		$resultado=str_replace($monto_alquiler, $r_monto_alquiler, $resultado);
 
       Yii::app()->request->sendFile('Contrato.docx',
                                 $this->renderPartial('generarcontrato',array(
@@ -339,7 +363,7 @@ public function actionRegistrarPago($id)
 		$model->nom_cliente=$cliente->nom_cliente;
 		$model->ape_cliente=$cliente->ape_cliente;
 		$model->id_contrato = $contrato->id_contrato;
-		$model->num_recibo= $contrato->id_contrato;
+		$model->num_recibo= $contrato->id_contrato+1;
 	    if($model->pago1==''){
 	    	$model->pago1=0;
 	    }
@@ -354,7 +378,7 @@ public function actionRegistrarPago($id)
 	    }
 	    $monto=$model->transferencia+$model->pago1+$model->pago2+$model->pago3;
 	    $model->monto=$monto;
-	    $model->saldo_pendiente=($model->monto_alquiler-$monto);
+	    $model->saldo_pendiente=($model->monto_pagado-$monto);
 
 	if($model->save())
 		$this->redirect(array('view','id'=>$model->id_pago_alquiler));
