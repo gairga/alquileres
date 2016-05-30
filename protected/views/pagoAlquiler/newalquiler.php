@@ -223,7 +223,7 @@ $(function(){
 
     <?php //echo $form->error($contrato,'id_tipo_pago'); ?>
 <?php $contrato->fecha_corte_pago=15; ?>
-  <?php echo $form->textFieldGroup($contrato,'monto_alquiler',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>
+  <?php echo $form->textFieldGroup($contrato,'cuota_pago',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>
 
   <?php //echo $form->textFieldGroup($contrato,'fecha_corte_pago',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>
    <?php echo $form->datePickerGroup($contrato,'fecha_corte_pago',array('widgetOptions'=>array('options'=>array(

@@ -27,6 +27,7 @@
  * @property integer $id_concepto
  * @property string $nom_cliente
  * @property string $ape_cliente
+ * @property string $transferencia
  *
  * The followings are the available model relations:
  * @property Proyecto $idProyecto
@@ -106,12 +107,13 @@ class PagoAlquiler extends CActiveRecord
 			'observacion' => 'Observacion',
 			'id_meses' => 'Mes a Cancelar',
 			'pago1' => 'Efectivo',
-			'pago2' => 'Pago2',
+			'pago2' => 'Debito',
 			'pago3' => 'Debito/Credito',
 			'id_tipo_pago' => 'Tipos de Forma de Pago',
 			'id_concepto' => 'Concepto',
 			'nom_cliente' => 'Nom Cliente',
 			'ape_cliente' => 'Ape Cliente',
+			'transferencia' => 'Transferencia',
 		);
 	}
 
@@ -156,6 +158,7 @@ class PagoAlquiler extends CActiveRecord
 		$criteria->compare('id_concepto',$this->id_concepto);
 		$criteria->compare('nom_cliente',$this->nom_cliente,true);
 		$criteria->compare('ape_cliente',$this->ape_cliente,true);
+		$criteria->compare('transferencia',$this->transferencia,true);
 
 
 		return new CActiveDataProvider($this, array(

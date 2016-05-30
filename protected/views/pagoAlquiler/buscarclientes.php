@@ -31,12 +31,12 @@ return false;
 'dataProvider'=>$model->search(),
 'filter'=>$model,
 'columns'=>array(
-		'idCliente.id_cliente',
+		//'idCliente.id_cliente',
         'nom_cliente',
         'ape_cliente',
 		/*'idCliente.nom_cliente',
 		'idCliente.ape_cliente',*/
-		'idCliente.num_identificacion',
+		//'idCliente.num_identificacion',
 		'idCliente.correo',
         'id_contrato',
         array(
@@ -48,7 +48,7 @@ return false;
         
         array(
             'class'=>'CButtonColumn',
-            'template'=>'{pago}{update}',
+            'template'=>'{pago}',
             'buttons'=>array
         (
         'pago' => array
@@ -56,13 +56,7 @@ return false;
             'label'=>'Ver Cliente',
             'imageUrl'=>Yii::app()->request->baseUrl.'/images/dolar.png',
             'url'=>'Yii::app()->createUrl("pagoAlquiler/registrarpago", array("id"=>$data->id_cliente))',
-        ),
-                'update' => array
-        (
-            'label'=>'Actualizar Gestión',
-            'imageUrl'=>Yii::app()->request->baseUrl.'/images/update.png',
-            'url'=>'Yii::app()->createUrl("pagoAlquiler/registrarpago", array("id"=>$data->id_cliente))',
-        ),
+        )
      ),
         ),
 ),

@@ -273,16 +273,20 @@ public function actionNewAlquiler()
     $contrato->attributes=$_POST['Contrato'];		
 	$model->attributes=$_POST['PagoAlquiler'];
 	$contrato->id_cliente=$model->id_cliente;
+	$cliente=Cliente::model()->find('id_cliente=:id_cliente',array(':id_cliente'=>$model->id_cliente));
 	$model->observacion='Registro Contrato';
+	$contrato->id_proyecto=$model->id_proyecto;
+	//$contrato->num_recibo=$cliente->num_recibo;
+	$contrato->nom_cliente=$cliente->nom_cliente;
+	$contrato->ape_cliente=$cliente->ape_cliente;
+	//echo $contrato->inicio_contrato;die;
+	$datetime1 = new DateTime($contrato->inicio_contrato);
+	$datetime2 = new DateTime($contrato->fin_contrato);
+	$interval = $datetime1->diff($datetime2);
+	$meses = ( $interval->y * 12 ) + $interval->m;
 
-//echo $contrato->inicio_contrato;die;
-$datetime1 = new DateTime($contrato->inicio_contrato);
-$datetime2 = new DateTime($contrato->fin_contrato);
-$interval = $datetime1->diff($datetime2);
-$meses = ( $interval->y * 12 ) + $interval->m;
 
-
-	$contrato->cuota_pago=$contrato->monto_alquiler*$meses;
+	$contrato->monto_alquiler=$contrato->cuota_pago*$meses;
 	//1.2.2 ACTUALIZAMOS EL TRAMITE PASO
 	$apartamento = Apartamento::model()->updateByPk($model->id_apartamento,array(  
 	                          'activo'                    =>1,
@@ -313,7 +317,7 @@ public function actionRegistrarPago($id)
     $apartamento=Apartamento::model()->find('id_cliente=:id_cliente',array(':id_cliente'=>$id));
     $cliente=Cliente::model()->find('id_cliente=:id_cliente',array(':id_cliente'=>$id));
     $pagoscliente=PagoAlquiler::model()->findAll('id_cliente=:id_cliente',array(':id_cliente'=>$id));
-
+    $monto=0;
 
 	// Uncomment the following line if AJAX validation is needed
 	// $this->performAjaxValidation($model);
@@ -324,7 +328,7 @@ public function actionRegistrarPago($id)
 		$model->attributes=$_POST['PagoAlquiler'];
 
 		$saldo_pendiente = ($contrato->monto_alquiler - $model->monto);
-
+//monto
 		$model->saldo_pendiente = $saldo_pendiente;
 		$model->monto_alquiler = $contrato->monto_alquiler;
 		$model->fecha_ultimo_pago =	$fecha_ultimo_pago;
@@ -332,12 +336,26 @@ public function actionRegistrarPago($id)
 		$model->id_edificio = $apartamento->id_edificio;
 		$model->id_apartamento = $apartamento->id_apartamento;
 		$model->id_cliente = $id;
+		$model->nom_cliente=$cliente->nom_cliente;
+		$model->ape_cliente=$cliente->ape_cliente;
 		$model->id_contrato = $contrato->id_contrato;
-	    if($model->pago1=='' or $model->pago2=='' or $model->pago3==''){
-	    	$model->pago1=null;
-	    	$model->pago2=null;
-	    	$model->pago3=null;
+		$model->num_recibo= $contrato->id_contrato;
+	    if($model->pago1==''){
+	    	$model->pago1=0;
 	    }
+	    if($model->pago2==''){
+	    	$model->pago2=0;
+	    } 
+        if($model->pago3==''){
+	    	$model->pago3=0;
+	    }
+	    if($model->transferencia==''){
+	    	$model->transferencia=0;
+	    }
+	    $monto=$model->transferencia+$model->pago1+$model->pago2+$model->pago3;
+	    $model->monto=$monto;
+	    $model->saldo_pendiente=($model->monto_alquiler-$monto);
+
 	if($model->save())
 		$this->redirect(array('view','id'=>$model->id_pago_alquiler));
 	}

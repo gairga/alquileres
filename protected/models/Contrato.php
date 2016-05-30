@@ -71,7 +71,7 @@ class Contrato extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id_contrato' => 'Id Contrato',
+			'id_contrato' => 'Num. Contrato',
 			'id_cliente' => 'Id Cliente',
 			'inicio_contrato' => 'Inicio Contrato',
 			'fin_contrato' => 'Fin Contrato',

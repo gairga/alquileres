@@ -38,36 +38,48 @@ $(function(){
          // $("#PagoAlquiler").css("display", "block");
          $('select#PagoAlquiler_id_tipo_pago').change(function () { 
           var x = $('#PagoAlquiler_id_tipo_pago').val();
-            //  alert(x);
+              alert(x);
               if(x==1){
-                $("#efectivo").css("display", "none");
+                $("#efectivo").css("display", "block");
                 $("#debito").css("display", "none");
                 $("#credito").css("display", "none");
+                $("#transferencia").css("display", "none");
               }
               if(x==2){
                 $("#efectivo").css("display", "none");
-                $("#debito").css("display", "none");
+                $("#debito").css("display", "block");
                 $("#credito").css("display", "none");
+                 $("#transferencia").css("display", "none");
               }
               if(x==3){
                 $("#efectivo").css("display", "none");
+                $("#credito").css("display", "block");
                 $("#debito").css("display", "none");
+                $("#transferencia").css("display", "none");
+              }
+              if(x==4){
+                $("#efectivo").css("display", "none");
                 $("#credito").css("display", "none");
-              }              
+                $("#debito").css("display", "none");
+                $("#transferencia").css("display", "block");
+              }                
               if(x==5){
                 $("#efectivo").css("display", "block");
                 $("#debito").css("display", "block");
                 $("#credito").css("display", "none");
+                $("#transferencia").css("display", "none");
               }
               if(x==6){
                 $("#efectivo").css("display", "block");
                 $("#credito").css("display", "block");
                 $("#debito").css("display", "none");
+                $("#transferencia").css("display", "none");
               }
               if(x==7){
                 $("#efectivo").css("display", "block");
                 $("#debito").css("display", "block");
                 $("#credito").css("display", "block");
+                $("#transferencia").css("display", "none");
               }
          });
        
@@ -102,10 +114,10 @@ $(function(){
 
     <?php foreach ($pagoscliente as $row) {
               echo $message = "<tr>
-                    <td>".$row['id_meses']."</td>                
-                    <td>".$row['monto_pagado']."</td>
-                      <td>".$row['saldo_pendiente']."</td> 
-                           <td>".$row['saldo_pendiente']."</td> 
+                    <td>".$row['fecha_pago']."</td>                
+                    <td>".$row['num_recibo']."</td>
+                    <td>".$row['monto']."</td> 
+                    <td>".$row['saldo_pendiente']."</td> 
                     </tr>
                                            
            ";
@@ -173,6 +185,12 @@ $(function(){
         </div>
      </div>      
 
+     <div id="transferencia">
+        <div class="form-group">
+         <?php echo $form->textFieldGroup($model,'transferencia',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>
+        </div>
+     </div>      
+       <?php $model->monto_pagado=$contrato->cuota_pago;?>
       <div class="form-group">
        <?php echo $form->textFieldGroup($model,'monto_pagado',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>
       </div>
