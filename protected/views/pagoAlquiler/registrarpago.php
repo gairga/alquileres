@@ -95,19 +95,27 @@ $(function(){
                <table border='1'>
                 <tr>               
                  <th>Fecha de Pago</th>
-                 <th>Monto Pagado</th>
+                 <th>No. Recibo</th>
+                 <th>Pago</th>
                  <th>Saldo Penditente</th>
                 </tr> 
+
     <?php foreach ($pagoscliente as $row) {
               echo $message = "<tr>
                     <td>".$row['id_meses']."</td>                
                     <td>".$row['monto_pagado']."</td>
-                   <td>".$row['saldo_pendiente']."</td>      
-                  </tr>                            
+                      <td>".$row['saldo_pendiente']."</td> 
+                           <td>".$row['saldo_pendiente']."</td> 
+                    </tr>
+                                           
            ";
         }
 
         ?>  
+                  <tr>
+                       <td>Total</td>   
+                       <td colspan='3'>886</td>   
+                  </tr>    
          </table> 
      </div>
           </div>
@@ -170,9 +178,6 @@ $(function(){
       </div>
       
 
-      <div class="form-group">
-      <?php echo $form->textFieldGroup($model,'monto',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>
-      </div>
 
       <div class="form-group">
     <?php echo $form->labelEx($model,'id_concepto'); ?>
