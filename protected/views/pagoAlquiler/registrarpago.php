@@ -120,6 +120,8 @@ $(function(){
        
 });
 </script>
+
+<?php $totalp=0?>
 <?php $total=0?>
 <?php echo $form->errorSummary($model); ?>
  <div class="panel panel-primary">
@@ -144,11 +146,12 @@ $(function(){
                  <th>Fecha de Pago</th>
                  <th>No. Recibo</th>
                  <th>Pago</th>
-                 <th>Saldo Penditente</th>
+                 <th>Saldo Penditente del Mes</th>
                 </tr> 
 
     <?php foreach ($pagoscliente as $row) {
-              $total+=$row['monto'];
+              $total+=$row['monto_alquiler'];
+              $totalp+=$row['saldo_pendiente'];
               echo $message = "<tr>
                     <td>".$row['fecha_pago']."</td>                
                     <td>".$row['num_recibo']."</td>
@@ -162,9 +165,13 @@ $(function(){
 
         ?>  
                   <tr>
-                       <td>Total</td>   
-                       <td colspan='3'><?php echo $total; ?></td>   
+                       <td>Total a Pagar del Contrato</td>   
+                       <td colspan='3'><?php echo $total; ?></td>     
                   </tr>    
+                     <tr>                    
+                       <td>Total Pagado</td>   
+                       <td colspan='3'><?php echo $totalp; ?></td>   
+                  </tr> 
          </table> 
      </div>
           </div>
