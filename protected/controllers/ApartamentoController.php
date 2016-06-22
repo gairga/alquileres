@@ -84,8 +84,11 @@ $model=new Apartamento;
 if(isset($_POST['Apartamento']))
 {
 $model->attributes=$_POST['Apartamento'];
-if($model->save())
-$this->redirect(array('view','id'=>$model->id_apartamento));
+if($model->save()){
+	Yii::app()->user->setFlash('success', "Apartamento Creado!");
+	$this->redirect(array('view','id'=>$model->id_apartamento));
+}
+
 }
 
 $this->render('create',array(

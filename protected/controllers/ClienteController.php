@@ -69,8 +69,10 @@ $model=new Cliente;
     if(isset($_POST['Cliente']))
     {
     $model->attributes=$_POST['Cliente'];
-    if($model->save())
+    if($model->save()){
+        Yii::app()->user->setFlash('success', "Cliente Creado!");
         $this->redirect(array('view','id'=>$model->id_cliente));
+    }
     }
 
     $this->render('create',array(

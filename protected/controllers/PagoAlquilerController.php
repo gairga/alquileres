@@ -381,6 +381,7 @@ public function actionRegistrarPago($id)
 	    $model->saldo_pendiente=($model->monto_pagado-$monto);
 
 	if($model->save())
+		Yii::app()->user->setFlash('success', "Pago Registrado!");
 		$this->redirect(array('view','id'=>$model->id_pago_alquiler));
 	}
 
