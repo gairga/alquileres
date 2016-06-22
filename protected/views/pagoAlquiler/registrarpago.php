@@ -128,10 +128,12 @@ $(function(){
       <div class="panel-heading">INFORMACIÓN GENERAL</div>
       <div class="panel-body">
         N° de Apartamento/Local:1126<br/>
+        Nombre del Proyecto: <?php echo $contrato->idProyecto->nom_proyecto;?><br/>
         Nombre del Cliente: <?php echo $cliente->nom_cliente;?><br/>
         Apellido del Cliente: <?php echo $cliente->ape_cliente;?><br/>
         N° de Identificación: <?php echo $cliente->num_identificacion;?> <br/>  
         Inicio de Contrato: <?php echo $contrato->inicio_contrato;?> <br/>
+        Fin de Contrato: <?php echo $contrato->fin_contrato;?> <br/>
         N° de Contrato: <?php echo $contrato->id_contrato; ?> <br/>
         Cuota de Pago Mensual: <?php echo $contrato->cuota_pago; ?> <br/>
         Feha de Corte de Pago:  <?php echo $contrato->fecha_corte_pago; ?> <br/>
@@ -142,7 +144,7 @@ $(function(){
             <div class='panel-heading'>DATOS DE LOS ULTIMOS PAGOS</div>
             <div class='panel-body'>
                <table border='1'>
-                <tr>               
+                <tr>
                  <th>Fecha de Pago</th>
                  <th>No. Recibo</th>
                  <th>Pago</th>
@@ -152,7 +154,7 @@ $(function(){
     <?php foreach ($pagoscliente as $row) {
               $total+=$row['monto_alquiler'];
               $totalp+=$row['saldo_pendiente'];
-              echo $message = "<tr>
+              echo $message = "<tr>               
                     <td>".$row['fecha_pago']."</td>                
                     <td>".$row['num_recibo']."</td>
                     <td>".$row['monto']."</td> 
@@ -187,7 +189,7 @@ $(function(){
       </div>
      
       <?php $model->num_recibo=0; ?>
-      <?php echo $model->monto=$contrato->monto_alquiler;?>
+      <?php $model->monto=$contrato->monto_alquiler;?>
       <?php //echo $form->textFieldGroup($model,'num_recibo',array('widgetOptions'=>array('htmlOptions'=>array('class'=>'span5')))); ?>
       
 
