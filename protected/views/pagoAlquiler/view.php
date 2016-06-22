@@ -35,4 +35,3 @@ array('label'=>'Administrar Alquiler','url'=>array('admin')),
 )); ?>
 
 <a href="#" class="btn btn-warning" role="button">GENERAR CONTRATO</a>
-<button type="button" class="btn btn-warning">GENERAR CONTRATO</button>
