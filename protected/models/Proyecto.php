@@ -53,7 +53,7 @@ class Proyecto extends CActiveRecord
 		return array(
 			'id_proyecto' => 'Proyecto',
 			'nom_proyecto' => 'Nombre del Proyecto',
-			'cod_proyecto' => 'Codigo del Proyecto',
+			'cod_proyecto' => 'Num de Folio',
 		);
 	}
 

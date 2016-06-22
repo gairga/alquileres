@@ -42,7 +42,7 @@ $(function(){
          // $("#PagoAlquiler").css("display", "block");
          $('select#PagoAlquiler_id_tipo_pago').change(function () { 
           var x = $('#PagoAlquiler_id_tipo_pago').val();
-              alert(x);
+             // alert(x);
               if(x==1){
                 $("#efectivo").css("display", "block");
                 $("#debito").css("display", "none");
@@ -131,7 +131,7 @@ $(function(){
         N° de Identificación: <?php echo $cliente->num_identificacion;?> <br/>  
         Inicio de Contrato: <?php echo $contrato->inicio_contrato;?> <br/>
         N° de Contrato: <?php echo $contrato->id_contrato; ?> <br/>
-        Cuota de Pago: <?php echo $contrato->cuota_pago; ?> <br/>
+        Cuota de Pago Mensual: <?php echo $contrato->cuota_pago; ?> <br/>
         Feha de Corte de Pago:  <?php echo $contrato->fecha_corte_pago; ?> <br/>
 <?php $contrato->monto_alquiler; ?> 
       </div>

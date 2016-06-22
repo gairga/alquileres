@@ -8,7 +8,7 @@ $this->menu=array(
 array('label'=>'Listar Pagos de Alquiler','url'=>array('index')),
 array('label'=>'Crear nuevo Alquiler','url'=>array('newalquiler')),
 array('label'=>'Generar Contrato','url'=>array('generarcontrato','id'=>$model->id_cliente)),
-array('label'=>'Generar Recibo','url'=>array('generarrecibo','id'=>$model->id_cliente)),
+//array('label'=>'Generar Recibo','url'=>array('generarrecibo','id'=>$model->id_cliente)),
 array('label'=>'Actualizar creado Alquiler','url'=>array('update','id'=>$model->id_pago_alquiler)),
 array('label'=>'Eliminar Alquiler','url'=>'#','linkOptions'=>array('submit'=>array('delete','id'=>$model->id_pago_alquiler),'confirm'=>'Are you sure you want to delete this item?')),
 array('label'=>'Administrar Alquiler','url'=>array('admin')),
