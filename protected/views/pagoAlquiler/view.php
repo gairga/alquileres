@@ -11,7 +11,7 @@ array('label'=>'Crear nuevo Alquiler','url'=>array('newalquiler')),
 //array('label'=>'Generar Recibo','url'=>array('generarrecibo','id'=>$model->id_cliente)),
 array('label'=>'Actualizar creado Alquiler','url'=>array('update','id'=>$model->id_pago_alquiler)),
 array('label'=>'Eliminar Alquiler','url'=>'#','linkOptions'=>array('submit'=>array('delete','id'=>$model->id_pago_alquiler),'confirm'=>'Are you sure you want to delete this item?')),
-array('label'=>'Administrar Alquiler','url'=>array('admin')),
+//array('label'=>'Administrar Alquiler','url'=>array('admin')),
 );
 ?>
 <button type="button" class="btn btn-warning">DATOS DEL ALQUILER #<?php echo $model->id_pago_alquiler; ?></button>
